@@ -1,1 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --font-inter:
+    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --color-primary: #7c3aed;
+  --color-primary-50: #f7f3ff;
+  --color-primary-100: #f1e9fe;
+  --color-primary-200: #e5d6fe;
+  --color-primary-300: #d0b5fd;
+  --color-primary-400: #b48bfa;
+  --color-primary-500: #955cf6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6928d9;
+  --color-primary-800: #5821b6;
+  --color-primary-900: #491d95;
+  --color-primary-950: #2f1065;
+}
+
+/* General css */
+body {
+  font-family: var(--font-inter);
+}
+
+button:disabled {
+  background-color: #6928d9;
+}
