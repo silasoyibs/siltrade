@@ -106,10 +106,7 @@ function SignupForm() {
             <span className="flex-none">Or Sign up with</span>
             <div className="bg-primary-300 h-0.5 w-full"></div>
           </div>
-          <button
-            type="submit"
-            className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2"
-          >
+          <button className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2">
             <img
               src="src/assets/goggle.svg"
               alt="goggle-logo"

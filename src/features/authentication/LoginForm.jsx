@@ -5,13 +5,10 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useSignin } from "./useSignin";
-import { useSigninWithGoggle } from "./useSigninWithGoggle";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { signin, isPending } = useSignin();
-  const { signinWithGoggle, isPending: isGooglePending } =
-    useSigninWithGoggle();
   const { register, handleSubmit, reset } = useForm();
 
   function onSubmit({ email, password }) {
@@ -96,16 +93,13 @@ function LoginForm() {
             <span className="flex-none">Or continue with</span>
             <div className="bg-primary-300 h-0.5 w-full"></div>
           </div>
-          <button
-            onClick={signinWithGoggle}
-            className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2"
-          >
+          <button className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2">
             <img
               src="src/assets/goggle.svg"
               alt="goggle-logo"
               className="w-5"
             />
-            {!isGooglePending ? " Sign in with Goggle" : "Signing..."}
+            Sign in with Goggle
           </button>
         </div>
         <p className="text-center">
