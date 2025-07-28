@@ -1,0 +1,9 @@
+function Spinner() {
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <div className="border-primary h-20 w-20 animate-spin rounded-[50%] border-3 border-t-transparent"></div>
+    </div>
+  );
+}
+
+export default Spinner;
