@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import AppLayout from "./ui/AppLayout";
+import Analysis from "./pages/Analysis";
 const queryClient = new QueryClient();
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             }
           >
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/analysis" element={<Analysis />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 import { FaArrowRightLong, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import LogoLight from "../../ui/LogoLight";
+import Logo from "../../ui/Logo";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSignup } from "./useSignUp";
@@ -27,7 +27,7 @@ function SignupForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-[400px] rounded-3xl bg-white bg-[url(/src/assets/form-bg.png)] bg-cover bg-center bg-no-repeat p-6 shadow"
       >
-        <LogoLight className="m-auto mb-4 w-[120px]" />
+        <Logo dark={true} className="m-auto mb-4 w-[120px]" />
         <h1 className="text-center text-3xl font-bold">Sign Up</h1>
         <p className="mb-4 text-center">
           Begin your path to profitable trading
