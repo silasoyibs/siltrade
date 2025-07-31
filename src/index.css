@@ -20,6 +20,7 @@
   --color-primary-800: #5821b6;
   --color-primary-900: #491d95;
   --color-primary-950: #2f1065;
+  --color-gray: #6b7280;
 }
 
 /* General css */
@@ -38,6 +39,3 @@ ul {
 li {
   list-style: none;
 }
-
-isactive? "text-primary bg-primary-100"
-              : "font- hover: bg-primary-100 flex items-center gap-3 px-3 py-3 font-medium";

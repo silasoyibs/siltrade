@@ -10,20 +10,32 @@ function SideBarMenu() {
       <SideBarItem
         text="Dashboard"
         link="dashboard"
-        icon={<RiDashboard3Fill />}
+        icon={<RiDashboard3Fill className="text-xl" />}
       />
       {/* item 2 */}
       <SideBarItem
         text="Market Analysis"
         link="analysis"
-        icon={<FaChartPie />}
+        icon={<FaChartPie className="text-xl" />}
       />
       {/* item 3 */}
-      <SideBarItem text="Trade Journal" link="journal" icon={<FaBook />} />
+      <SideBarItem
+        text="Trade Journal"
+        link="journal"
+        icon={<FaBook className="text-xl" />}
+      />
       {/* item 4 */}
-      <SideBarItem text="Ai Insights" link="insights" icon={<FaRobot />} />
+      <SideBarItem
+        text="Ai Insights"
+        link="insights"
+        icon={<FaRobot className="text-xl" />}
+      />
       {/* item 5 */}
-      <SideBarItem text="Settings" link="settings" icon={<IoMdSettings />} />
+      <SideBarItem
+        text="Settings"
+        link="settings"
+        icon={<IoMdSettings className="text-xl" />}
+      />
     </nav>
   );
 }
