@@ -21,7 +21,9 @@ function SideBarMenu() {
       {/* item 3 */}
       <SideBarItem text="Trade Journal" link="journal" icon={<FaBook />} />
       {/* item 4 */}
-      <SideBarItem text="Settings" link="journal" icon={<IoMdSettings />} />
+      <SideBarItem text="Ai Insights" link="insights" icon={<FaRobot />} />
+      {/* item 5 */}
+      <SideBarItem text="Settings" link="settings" icon={<IoMdSettings />} />
     </nav>
   );
 }

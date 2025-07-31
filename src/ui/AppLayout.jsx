@@ -6,11 +6,11 @@ import { useState } from "react";
 function AppLayout() {
   const [isExpanded, setIsExpanded] = useState(true);
   return (
-    <div className="grid h-screen grid-cols-[auto_1fr]">
+    <div className="grid h-screen w-screen grid-cols-[auto_1fr] overflow-hidden">
       <Sidebar isExpanded={isExpanded} />
-      <div>
+      <div className="flex h-screen flex-col overflow-hidden">
         <NavBar setIsExpanded={setIsExpanded} />
-        <main className="h-screen bg-[#F7F7F7]">
+        <main className="h-full flex-1 overflow-y-scroll bg-[#F7F7F7]">
           <Outlet />
         </main>
       </div>
