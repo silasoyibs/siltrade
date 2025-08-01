@@ -4,6 +4,8 @@ import AiInsightBox from "./AiInsightBox";
 import { FaLightbulb } from "react-icons/fa";
 import { IoWarning } from "react-icons/io5";
 import { TbGraphFilled } from "react-icons/tb";
+import Button from "../../ui/Button";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 
 function AiInsight() {
   return (
@@ -17,7 +19,7 @@ function AiInsight() {
           <p className="text-gray text-md">Based on your recent trades</p>
         </div>
       </div>
-      <div className="p-5">
+      <div className="p-5 pb-0">
         <AiInsightBox
           icon={<FaLightbulb className="text-primary mt-1 text-xl" />}
           tittle="Pattern Recognition"
@@ -33,6 +35,10 @@ function AiInsight() {
           tittle="Performance Insights"
           body="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremqu "
         />
+        <Button>
+          <FaWandMagicSparkles className="text-white" />
+          Get Detailed AI Analysis
+        </Button>
       </div>
     </Card>
   );
