@@ -17,7 +17,7 @@ function StatsBox({
       </span>
       <div>
         <p className="text-md font-semibold text-[#6b7280]">{rateName}</p>
-        <p className="text-2xl font-bold">{`${rateTotalPercentage}`}</p>
+        <p className="text-xl font-bold">{`${rateTotalPercentage}`}</p>
       </div>
 
       <span

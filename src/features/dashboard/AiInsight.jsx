@@ -13,7 +13,7 @@ function AiInsight() {
           <FaRobot className="text-2xl text-white" />
         </span>
         <div>
-          <p className="text-lg font-bold">AI Insights </p>
+          <p className="text-lg font-medium">AI Insights </p>
           <p className="text-gray text-md">Based on your recent trades</p>
         </div>
       </div>
