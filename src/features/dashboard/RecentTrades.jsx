@@ -11,7 +11,7 @@ function RecentTrades() {
           View All
         </NavLink>
       </div>
-      <div className="text-gray grid grid-cols-6 gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] bg-[#f7f7f7] px-5 py-3">
+      <div className="text-gray grid grid-cols-6 gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] bg-[#f7f7f7] px-5 py-3 text-sm">
         <span>TYPE</span>
         <span>DATE</span>
         <span>PAIR</span>
@@ -27,6 +27,7 @@ function RecentTrades() {
         entry="29,450/30,120"
         rr="2:1:1"
         result={2.27}
+        status="Win"
       />
       <RecentTradeList
         type="Short"
@@ -35,6 +36,7 @@ function RecentTrades() {
         entry="29,450/30,120"
         rr="2:1:1"
         result={2.27}
+        status="Loss"
       />
       <RecentTradeList
         type="Long"
@@ -43,6 +45,7 @@ function RecentTrades() {
         entry="29,450/30,120"
         rr="2:1:1"
         result={2.27}
+        status="Loss"
       />
       <RecentTradeList
         type="Long"
@@ -51,6 +54,7 @@ function RecentTrades() {
         entry="29,450/30,120"
         rr="2:1:1"
         result={2.27}
+        status="Win"
       />
       <RecentTradeList
         type="Short"
@@ -59,6 +63,7 @@ function RecentTrades() {
         entry="29,450/30,120"
         rr="2:1:1"
         result={2.27}
+        status="Loss"
       />
     </Card>
   );
