@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import AppLayout from "./ui/AppLayout";
 import Analysis from "./pages/Analysis";
+import TradeJournal from "./pages/TradeJournal";
 const queryClient = new QueryClient();
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           >
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/analysis" element={<Analysis />} />
+            <Route path="/journal" element={<TradeJournal />} />
           </Route>
         </Routes>
       </BrowserRouter>
