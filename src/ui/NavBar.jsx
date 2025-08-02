@@ -21,7 +21,7 @@ function NavBar({ setIsExpanded }) {
         <input
           type="text"
           placeholder="Search..."
-          className="focus:ring-primary right-1 rounded-md border-1 border-[rgba(0,0,0,0.2)] px-9 py-2 focus:ring-1 focus:outline-none"
+          className="focus:ring-primary right-1 rounded-lg border-1 border-[rgba(0,0,0,0.2)] px-9 py-2 focus:ring-1 focus:outline-none"
         />
       </div>
 
