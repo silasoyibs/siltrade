@@ -43,3 +43,15 @@ li {
 input:disabled {
   cursor: not-allowed;
 }
+
+/* Date Picker Input */
+.react-datepicker__header {
+  background-color: #f1e9fe !important;
+}
+.react-datepicker__day--selected {
+  background-color: #7c3aed !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: #f1e9fe !important;
+}
