@@ -1,9 +1,19 @@
+import {
+  HiOutlineArrowNarrowDown,
+  HiOutlineArrowNarrowUp,
+} from "react-icons/hi";
+
 function RecentTradeList({ type, date, pair, entry, rr, result, status }) {
   return (
-    <div className="grid grid-cols-6 gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] px-5 py-3">
+    <div className="grid grid-cols-6 justify-items-center gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] px-5 py-3">
       <span
-        className={` ${type === "Long" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-15 items-center justify-center rounded-lg px-2 py-1 text-sm font-medium`}
+        className={` ${type === "Long" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-18 items-center justify-center rounded-lg px-2 py-1 text-sm font-medium`}
       >
+        {type === "Long" ? (
+          <HiOutlineArrowNarrowUp />
+        ) : (
+          <HiOutlineArrowNarrowDown />
+        )}
         {type}
       </span>
       <span className="text-gray">{date}</span>
