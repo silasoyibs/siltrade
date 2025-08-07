@@ -5,18 +5,26 @@ import {
 } from "react-icons/hi";
 import { MdCheck, MdDelete, MdOutlineClose } from "react-icons/md";
 
-function TradeJournalList({
-  type,
-  date,
-  pair,
-  entry,
-  stopLoss,
-  rr,
-  result,
-  status,
-}) {
+function TradeJournalRow({ trade, isPending }) {
+  const {
+    type,
+    date,
+    entry,
+    exit,
+    stopLoss,
+    pair,
+    result,
+    riskToReward,
+    status,
+    notes,
+  } = trade;
+
+  console.log(trade, isPending);
   return (
-    <div className="grid grid-cols-10 justify-items-center gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] px-5 py-3">
+    <div
+      role="row"
+      className="grid grid-cols-10 justify-items-center gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] px-5 py-3"
+    >
       <span
         className={` ${type === "Long" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-17 items-center justify-center rounded-lg px-2 py-1 text-sm font-medium`}
       >
@@ -29,7 +37,7 @@ function TradeJournalList({
       </span>
       <span className="text-gray">{date}</span>
       <span className="text-sm font-medium">{pair}</span>
-      <span className="text-gray">{entry}</span>
+      <span className="text-gray">{`${entry}/${exit}`}</span>
       <span className="text-gray justify-self-center">{stopLoss}</span>
       <span
         className={` ${status === "Win" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex items-center justify-self-center rounded-lg px-2 pl-1 text-sm font-medium`}
@@ -38,13 +46,13 @@ function TradeJournalList({
         {status}
       </span>
 
-      <span className="text-gray justify-self-center">{rr}</span>
+      <span className="text-gray justify-self-center">{riskToReward}</span>
       <span
-        className={` ${status === "Win" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-15 items-center justify-center rounded-lg px-2 py-1 text-sm font-medium`}
+        className={` ${status === "Win" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-15 items-center rounded-lg px-2 py-1 text-sm font-medium`}
       >
-        {status === "Win" ? `+${result}%` : `-${result}%`}
+        {status === "Win" ? `${result}%` : `-${result}%`}
       </span>
-      <span>jddhdhdhh..</span>
+      <span className="w-full truncate">{notes}</span>
       <div className="flex gap-2">
         <span>
           <FaEdit className="text-primary text-xl" />
@@ -57,4 +65,4 @@ function TradeJournalList({
   );
 }
 
-export default TradeJournalList;
+export default TradeJournalRow;

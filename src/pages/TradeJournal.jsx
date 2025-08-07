@@ -1,4 +1,3 @@
-import NewTrade from "../features/journal/NewTrade";
 import TradesJournalTable from "../features/journal/TradesJournalTable";
 
 function TradeJournal() {

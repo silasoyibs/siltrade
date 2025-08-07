@@ -1,48 +1,63 @@
 import { NavLink } from "react-router-dom";
 import Card from "../../ui/Card";
-import TradeJournalList from "./TradeJournalList";
+import TradeJournalRow from "./TradeJournalRow";
 import Button from "../../ui/Button";
 import { IoIosAdd, IoMdAddCircle } from "react-icons/io";
+import { useTrades } from "./useTrades";
+import Spinner from "../../ui/Spinner";
+import Modal from "../../ui/Modal";
+import JournalForm from "./JournalForm";
+import { useState } from "react";
+import TableHeader from "./TableHeader";
 
 function TradesJournalTable() {
+  const [isOpen, setIsOpen] = useState();
+  const { trades, isPending } = useTrades();
+  function handleCloseModal() {
+    setIsOpen(false);
+  }
+  if (isPending) return <Spinner />;
   return (
-    <Card className={"h-min"}>
-      <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">
-        <span className="text-lg font-medium">All Trades</span>
+    <>
+      <Card>
+        <div
+          role="table"
+          className="flex min-w-[200px] justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5"
+        >
+          <span className="text-lg font-medium">All Trades</span>
 
-        <Button className={"!my-0 max-w-35"}>
-          {" "}
-          <IoMdAddCircle />
-          Addd Trade
-        </Button>
-      </div>
-      <div className="text-gray grid grid-cols-10 justify-items-center gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] bg-[#f7f7f7] px-5 py-3 text-sm">
-        <span>TYPE</span>
-        <span>DATE</span>
-        <span>PAIR</span>
-        <span>ENTRY/EXIT</span>
-        <span>STOPLOSS</span>
-        <span>STATUS</span>
-        <span> R:R</span>
-        <span>RESULT</span>
-        <span>NOTES</span>
-        <span>ACTION</span>
-      </div>
+          <Button className={"!my-0 max-w-35"} onClick={() => setIsOpen(true)}>
+            {" "}
+            <IoMdAddCircle />
+            Add Trade
+          </Button>
+        </div>
 
-      <TradeJournalList
-        type="Long"
-        date="jul 29,2023"
-        pair="BTC/USD"
-        entry="29,450/30,120"
-        stopLoss="29,000"
-        status="Win"
-        rr="2:1:1"
-        result={2.27}
-        notes={"dkdjddj"}
-        iconType
-        iconStatus
-      />
-    </Card>
+        <TableHeader>
+          <div>TYPE</div>
+          <div>DATE</div>
+          <div>PAIR</div>
+          <div>ENTRY/EXIT</div>
+          <div>STOPLOSS</div>
+          <div>STATUS</div>
+          <div> R:R</div>
+          <div>RESULT</div>
+          <div>NOTES</div>
+          <div>ACTION</div>
+        </TableHeader>
+
+        <div>
+          {trades.map((trade) => (
+            <TradeJournalRow trade={trade} key={trade.id} />
+          ))}
+        </div>
+      </Card>
+      {isOpen && (
+        <Modal>
+          <JournalForm handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
+    </>
   );
 }
 
