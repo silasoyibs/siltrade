@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { IoIosClose, IoMdSearch } from "react-icons/io";
 import Card from "../../ui/Card";
 import Button from "../../ui/Button";
@@ -9,7 +9,7 @@ import Select from "react-select";
 import InputBox from "../../ui/InputBox.Jsx";
 
 function JournalForm({ handleCloseModal }) {
-  const { setValue, watch } = useForm({
+  const { setValue, watch, handleSubmit, reset, register, control } = useForm({
     defaultValues: {
       tradeType: "Long",
     },
@@ -20,6 +20,11 @@ function JournalForm({ handleCloseModal }) {
     { value: "loss", label: "loss" },
   ];
 
+  function onSubmit(data) {
+    console.log(data);
+    reset();
+  }
+
   return (
     <Card className={`w-full max-w-[45rem]`}>
       <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">
@@ -28,7 +33,7 @@ function JournalForm({ handleCloseModal }) {
           <IoIosClose className="text-4xl" />
         </button>
       </div>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-2 grid-rows-[repeat(4,_auto)] gap-5 p-5">
           <div>
             <label className="block">Trade Type</label>
@@ -53,11 +58,13 @@ function JournalForm({ handleCloseModal }) {
             <label className="block">Entry Price</label>
             <div className="relative">
               <InputBox
+                type="numeric"
                 icon={
                   <BsCurrencyDollar className="text-gray absolute bottom-[12px] left-2 text-lg" />
                 }
                 inputPlaceholder={"0.00"}
                 id="entry-price"
+                {...register("entry")}
               />
             </div>
           </div>
@@ -65,19 +72,33 @@ function JournalForm({ handleCloseModal }) {
             <label className="block" htmlFor="Outcome">
               Status
             </label>
-            <Select
-              options={tradeStatus}
-              placeholder="Select Status"
-              classNames={{
-                control: ({ isFocused }) =>
-                  `!w-full !rounded-lg !border-[1.5px] !border-[rgba(0,0,0,0.2)] !px-9 !pl-2 ${isFocused ? "!ring-[1.5px] !ring-primary !outline-none !border-hidden" : ""}`,
-                option: ({ isFocused, isSelected }) =>
-                  `cursor-pointer transition-all duration-200 rounded-md ${
-                    isFocused ? "!bg-primary-100 !text-primary" : "text-black"
-                  } ${
-                    isSelected ? "!bg-transparent !text-primary" : "text-black"
-                  }`,
-              }}
+            <Controller
+              name="status"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  value={tradeStatus.find(
+                    (option) => option.value === field.value,
+                  )}
+                  onChange={(selected) => field.onChange(selected.value)}
+                  options={tradeStatus}
+                  placeholder="Select Status"
+                  classNames={{
+                    control: ({ isFocused }) =>
+                      `!w-full !rounded-lg !border-[1.5px] !border-[rgba(0,0,0,0.2)] !px-9 !pl-2 ${isFocused ? "!ring-[1.5px] !ring-primary !outline-none !border-hidden" : ""}`,
+                    option: ({ isFocused, isSelected }) =>
+                      `cursor-pointer transition-all duration-200 rounded-md ${
+                        isFocused
+                          ? "!bg-primary-100 !text-primary"
+                          : "text-black"
+                      } ${
+                        isSelected
+                          ? "!bg-transparent !text-primary"
+                          : "text-black"
+                      }`,
+                  }}
+                />
+              )}
             />
           </div>
           <div>
@@ -88,6 +109,7 @@ function JournalForm({ handleCloseModal }) {
                   <BsCurrencyDollar className="text-gray absolute bottom-[12px] left-2 text-lg" />
                 }
                 inputPlaceholder={"0.00"}
+                {...register("exit")}
               />
             </div>
           </div>
@@ -99,9 +121,10 @@ function JournalForm({ handleCloseModal }) {
             <div className="relative">
               <InputBox
                 inputPlaceholder={"1:5:1"}
-                inputType="text"
+                type="text"
                 className={`bg-[#f7f7f7] pl-2 placeholder:text-left focus:!hidden`}
                 readOnly
+                {...register("riskToReward")}
               />
             </div>
             <p className="text-gray font-medium">
@@ -112,11 +135,13 @@ function JournalForm({ handleCloseModal }) {
             <label className="block">Trading Pair</label>
             <div className="relative">
               <InputBox
+                type="text"
                 icon={
                   <BsCurrencyDollar className="text-gray absolute bottom-[12px] left-2 text-lg" />
                 }
                 inputPlaceholder={"e.g., BTC/USD"}
                 id="entry-price"
+                {...register("pair")}
               />
             </div>
           </div>
@@ -128,6 +153,7 @@ function JournalForm({ handleCloseModal }) {
                   <BsCurrencyDollar className="text-gray absolute bottom-[12px] left-2 text-lg" />
                 }
                 inputPlaceholder={"0.00"}
+                {...register("stopLoss")}
               />
             </div>
           </div>
@@ -137,8 +163,9 @@ function JournalForm({ handleCloseModal }) {
               <InputBox
                 inputPlaceholder={"Why did you take this trade?"}
                 id="entry-price"
-                inputType="text"
+                type="text"
                 className="w-full pb-30 pl-2 placeholder:text-left"
+                {...register("notes")}
               />
             </div>
           </div>
@@ -151,7 +178,7 @@ function JournalForm({ handleCloseModal }) {
             >
               Cancel
             </Button>
-            <Button>Save Trade</Button>
+            <Button type="submit">Save Trade</Button>
           </div>
         </div>
       </form>

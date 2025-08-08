@@ -1,6 +1,9 @@
-// import JournalForm from "../features/journal/JournalForm";
-// import { getTrades } from "../services/apiTrades";
+import Spinner from "../ui/Spinner";
 
-function Test() {}
+function Test() {
+  return <Spinner />;
+}
 
 export default Test;
+
+// Default values shown
