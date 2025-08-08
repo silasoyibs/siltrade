@@ -1,12 +1,9 @@
-import { useState, forwardRef } from "react";
+import { forwardRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BsCalendar3 } from "react-icons/bs";
 
-function FormDatepicker() {
-  const [startDate, setStartDate] = useState(new Date());
-
-  // Wrap InputBox with forwardRef
+function FormDatepicker({ value, onChange, name }) {
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <div className="relative w-full">
       <BsCalendar3 className="absolute bottom-[13px] left-2 text-lg text-black" />
@@ -28,10 +25,11 @@ function FormDatepicker() {
     <div>
       <label className="mb-1 block">Date</label>
       <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
+        selected={value}
+        onChange={onChange}
         customInput={<CustomInput />}
         dateFormat="MM/dd/yyyy"
+        name={name}
       />
     </div>
   );

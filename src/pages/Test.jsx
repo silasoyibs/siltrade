@@ -1,7 +1,7 @@
-import Spinner from "../ui/Spinner";
+import Loader from "../ui/Loader";
 
 function Test() {
-  return <Spinner />;
+  return <Loader />;
 }
 
 export default Test;

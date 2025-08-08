@@ -7,22 +7,49 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import FormDatepicker from "../../ui/FormDatePicker";
 import Select from "react-select";
 import InputBox from "../../ui/InputBox.Jsx";
+import { calculateRiskReward, formatJournalDate } from "../../utils/helpers";
+import { useEffect, useState } from "react";
+import Loader from "../../ui/Loader";
 
 function JournalForm({ handleCloseModal }) {
+  const [isLoading, setIsLoading] = useState(false);
   const { setValue, watch, handleSubmit, reset, register, control } = useForm({
     defaultValues: {
       tradeType: "Long",
     },
   });
   const tradeType = watch("tradeType");
+  const entry = watch("entry");
+  const exit = watch("exit");
+  const stopLoss = watch("stopLoss");
+
   const tradeStatus = [
     { value: "win", label: "win" },
     { value: "loss", label: "loss" },
   ];
+  useEffect(() => {
+    if (!entry || !exit || !stopLoss) return;
+
+    setIsLoading(true); // show loader
+    setValue("riskToReward", ""); // clear old value while loading
+
+    const timer = setTimeout(() => {
+      const calculated = calculateRiskReward(entry, exit, stopLoss);
+      setValue("riskToReward", calculated || "");
+      setIsLoading(false); // hide loader
+    }, 500); // debounce time
+
+    return () => clearTimeout(timer);
+  }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
-    console.log(data);
+    const formattedDate = formatJournalDate(data.date);
+
     reset();
+    console.log({
+      ...data,
+      date: formattedDate,
+    });
   }
 
   return (
@@ -64,7 +91,7 @@ function JournalForm({ handleCloseModal }) {
                 }
                 inputPlaceholder={"0.00"}
                 id="entry-price"
-                {...register("entry")}
+                {...register("entry", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -109,23 +136,33 @@ function JournalForm({ handleCloseModal }) {
                   <BsCurrencyDollar className="text-gray absolute bottom-[12px] left-2 text-lg" />
                 }
                 inputPlaceholder={"0.00"}
-                {...register("exit")}
+                {...register("exit", { valueAsNumber: true })}
               />
             </div>
           </div>
           <div>
-            <FormDatepicker />
+            <Controller
+              control={control}
+              name="date"
+              defaultValue={new Date()}
+              render={({ field }) => <FormDatepicker {...field} />}
+            />
           </div>
           <div>
             <label className="block">R:R Ratio</label>
             <div className="relative">
               <InputBox
-                inputPlaceholder={"1:5:1"}
+                inputPlaceholder={"1:5"}
                 type="text"
                 className={`bg-[#f7f7f7] pl-2 placeholder:text-left focus:!hidden`}
                 readOnly
                 {...register("riskToReward")}
               />
+              {isLoading && (
+                <div className="absolute top-[-16px] right-0">
+                  <Loader />
+                </div>
+              )}
             </div>
             <p className="text-gray font-medium">
               Auto-calculate based on entry and exist price
@@ -153,7 +190,7 @@ function JournalForm({ handleCloseModal }) {
                   <BsCurrencyDollar className="text-gray absolute bottom-[12px] left-2 text-lg" />
                 }
                 inputPlaceholder={"0.00"}
-                {...register("stopLoss")}
+                {...register("stopLoss", { valueAsNumber: true })}
               />
             </div>
           </div>
