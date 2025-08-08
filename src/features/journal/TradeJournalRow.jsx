@@ -5,7 +5,7 @@ import {
 } from "react-icons/hi";
 import { MdCheck, MdDelete, MdOutlineClose } from "react-icons/md";
 
-function TradeJournalRow({ trade, isPending }) {
+function TradeJournalRow({ trade }) {
   const {
     type,
     date,
@@ -19,7 +19,6 @@ function TradeJournalRow({ trade, isPending }) {
     notes,
   } = trade;
 
-  console.log(trade, isPending);
   return (
     <div
       role="row"
