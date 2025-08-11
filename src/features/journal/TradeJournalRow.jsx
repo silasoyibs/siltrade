@@ -4,9 +4,12 @@ import {
   HiOutlineArrowNarrowUp,
 } from "react-icons/hi";
 import { MdCheck, MdDelete, MdOutlineClose } from "react-icons/md";
+import { useDeleteTrade } from "./useDeleteTrade";
+import { useJournal } from "../../contexts/JournalContext";
 
-function TradeJournalRow({ trade }) {
+function TradeJournalRow({ trade, handleOpenModal }) {
   const {
+    id: tradeId,
     type,
     date,
     entry,
@@ -18,7 +21,8 @@ function TradeJournalRow({ trade }) {
     status,
     notes,
   } = trade;
-
+  const { setJournal } = useJournal();
+  const { deleteTrade } = useDeleteTrade();
   return (
     <div
       role="row"
@@ -49,16 +53,21 @@ function TradeJournalRow({ trade }) {
       <span
         className={` ${status === "Win" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-15 items-center rounded-lg px-2 py-1 text-sm font-medium`}
       >
-        {status === "Win" ? `${result}%` : `-${result}%`}
+        {status === "Win" ? `${result}%` : `${result}%`}
       </span>
       <span className="w-full truncate">{notes}</span>
       <div className="flex gap-2">
-        <span>
+        <button
+          onClick={() => {
+            handleOpenModal();
+            setJournal(trade);
+          }}
+        >
           <FaEdit className="text-primary text-xl" />
-        </span>
-        <span>
+        </button>
+        <button onClick={() => deleteTrade(tradeId)}>
           <MdDelete className="text-xl text-red-500" />
-        </span>
+        </button>
       </div>
     </div>
   );

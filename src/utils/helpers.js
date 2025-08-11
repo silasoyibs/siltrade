@@ -30,7 +30,7 @@ export function calculateRiskReward(entryPrice, existPrice, stoploss) {
  * calculateResult(100, 120, 90, "Long"); // { status: "Win", result: "20.00" }
  */
 export function calculateResult(entryPrice, existPrice, stopLoss, tradeType) {
-  if (!entryPrice || !existPrice || !stopLoss) return;
+  if (!entryPrice || !existPrice || !stopLoss) return { result: null };
 
   let result = 0;
   let status = "Win";

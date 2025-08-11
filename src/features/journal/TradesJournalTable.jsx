@@ -16,6 +16,10 @@ function TradesJournalTable() {
   function handleCloseModal() {
     setIsOpen(false);
   }
+  function handleOpenModal() {
+    setIsOpen(true);
+  }
+
   if (isPending) return <Spinner />;
   return (
     <>
@@ -48,7 +52,11 @@ function TradesJournalTable() {
 
         <div>
           {trades.map((trade) => (
-            <TradeJournalRow trade={trade} key={trade.id} />
+            <TradeJournalRow
+              trade={trade}
+              key={trade.id}
+              handleOpenModal={handleOpenModal}
+            />
           ))}
         </div>
       </Card>
