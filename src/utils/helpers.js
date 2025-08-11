@@ -1,3 +1,5 @@
+import { parseISO, format } from "date-fns";
+
 /**
  * Calculates the Risk-to-Reward ratio of a trade.
  *
@@ -62,4 +64,9 @@ export function calculateResult(entryPrice, existPrice, stopLoss, tradeType) {
   }
 
   return { status, result };
+}
+
+export function formatJournalTradeDate(dateString) {
+  const date = parseISO(dateString); // e.g. "2025-07-29"
+  return format(date, "MMMM, dd, yyyy");
 }

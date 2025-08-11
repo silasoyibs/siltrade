@@ -1,17 +1,25 @@
 import { useForm, Controller } from "react-hook-form";
-import { IoIosClose, IoMdSearch } from "react-icons/io";
+import { IoIosClose } from "react-icons/io";
 import Card from "../../ui/Card";
 import Button from "../../ui/Button";
 import { BsCurrencyDollar } from "react-icons/bs";
 import FormDatepicker from "../../ui/FormDatePicker";
 import Select from "react-select";
 import InputBox from "../../ui/InputBox.Jsx";
-import { calculateRiskReward, formatJournalDate } from "../../utils/helpers";
-import { useEffect, useState } from "react";
-import Loader from "../../ui/Loader";
+import {
+  calculateRiskReward,
+  formatJournalTradeDate,
+} from "../../utils/helpers";
+import { useEffect } from "react";
+// import Loader from "../../ui/Loader";
+import { useCreateTrade } from "./useCreateTrade";
+import { useJournal } from "../../contexts/JournalContext";
 
 function JournalForm({ handleCloseModal }) {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  const { createNewTrade, isCreating } = useCreateTrade();
+  const { id: editTradeId, ...editValues } = useJournal().journal || {};
+  const isEditingSession = editTradeId;
   const { setValue, watch, handleSubmit, reset, register, control } = useForm({
     defaultValues: isEditingSession
       ? editValues
@@ -19,7 +27,7 @@ function JournalForm({ handleCloseModal }) {
           type: "Long",
         },
   });
-  const tradeType = watch("tradeType");
+  const type = watch("type");
   const entry = watch("entry");
   const exit = watch("exit");
   const stopLoss = watch("stopLoss");
@@ -31,23 +39,22 @@ function JournalForm({ handleCloseModal }) {
   useEffect(() => {
     if (!entry || !exit || !stopLoss) return;
 
-    setIsLoading(true); // show loader
+    // setIsLoading(true); // show loader
     setValue("riskToReward", ""); // clear old value while loading
 
     const timer = setTimeout(() => {
       const calculated = calculateRiskReward(entry, exit, stopLoss);
       setValue("riskToReward", calculated || "");
-      setIsLoading(false); // hide loader
+      // setIsLoading(false); // hide loader
     }, 500); // debounce time
 
     return () => clearTimeout(timer);
   }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
-    const formattedDate = formatJournalDate(data.date);
-
+    const formattedDate = formatJournalTradeDate(data.date);
     reset();
-    console.log({
+    createNewTrade({
       ...data,
       date: formattedDate,
     });
