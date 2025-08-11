@@ -26,16 +26,14 @@ export async function deleteTrade(id) {
   }
 }
 
-export async function editTrade(id, editedTrade) {
+export async function editTrade(id, editedValues) {
   const { data, error } = await supabase
     .from("Trades")
-    .update({ ...editedTrade })
+    .update({ ...editedValues })
     .eq("id", id)
     .select();
   if (error) {
     throw new Error("Trade could not be edited");
-  } else {
-    console.log("trade edited sucessfully");
   }
 
   return { data };
