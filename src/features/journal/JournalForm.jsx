@@ -52,12 +52,21 @@ function JournalForm({ handleCloseModal }) {
   }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
-    const formattedDate = formatJournalTradeDate(data.date);
-    reset();
-    createNewTrade({
-      ...data,
-      date: formattedDate,
-    });
+    // const formattedDate = formatJournalTradeDate(data.date);
+    const formattedDate = data.date;
+
+    createNewTrade(
+      {
+        ...data,
+        date: formattedDate,
+      },
+      {
+        onSuccess: () => {
+          reset();
+          handleCloseModal();
+        },
+      },
+    );
   }
 
   return (
@@ -151,7 +160,7 @@ function JournalForm({ handleCloseModal }) {
             </div>
           </div>
           <div>
-            <FormDatepicker />
+            <FormDatepicker control={control} name="date" />
           </div>
           <div>
             <label className="block">R:R Ratio</label>
