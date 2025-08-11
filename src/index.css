@@ -30,9 +30,7 @@ body {
 button {
   cursor: pointer;
 }
-button:disabled {
-  background-color: #6928d9;
-}
+
 ul {
   list-style: none;
 }

@@ -1,52 +1,88 @@
 import { useForm, Controller } from "react-hook-form";
-import { IoIosClose, IoMdSearch } from "react-icons/io";
+import { IoIosClose } from "react-icons/io";
 import Card from "../../ui/Card";
 import Button from "../../ui/Button";
-
 import { BsCurrencyDollar } from "react-icons/bs";
 import FormDatepicker from "../../ui/FormDatePicker";
 import Select from "react-select";
 import InputBox from "../../ui/InputBox.Jsx";
+<<<<<<< HEAD
 import { calculateRiskReward, formatJournalDate } from "../../utils/helpers";
 import { useEffect, useState } from "react";
 import Loader from "../../ui/Loader";
 
 function JournalForm({ handleCloseModal }) {
   const [isLoading, setIsLoading] = useState(false);
+=======
+import {
+  calculateRiskReward,
+  formatJournalTradeDate,
+} from "../../utils/helpers";
+import { useEffect } from "react";
+// import Loader from "../../ui/Loader";
+import { useCreateTrade } from "./useCreateTrade";
+import { useJournal } from "../../contexts/JournalContext";
+
+function JournalForm({ handleCloseModal }) {
+  // const [isLoading, setIsLoading] = useState(false);
+  const { createNewTrade, isCreating } = useCreateTrade();
+  const { id: editTradeId, ...editValues } = useJournal().journal || {};
+  const isEditingSession = editTradeId;
+>>>>>>> feat/journal-trade
   const { setValue, watch, handleSubmit, reset, register, control } = useForm({
-    defaultValues: {
-      tradeType: "Long",
-    },
+    defaultValues: isEditingSession
+      ? editValues
+      : {
+          type: "Long",
+        },
   });
+<<<<<<< HEAD
   const tradeType = watch("tradeType");
+=======
+  const type = watch("type");
+>>>>>>> feat/journal-trade
   const entry = watch("entry");
   const exit = watch("exit");
   const stopLoss = watch("stopLoss");
 
   const tradeStatus = [
-    { value: "win", label: "win" },
-    { value: "loss", label: "loss" },
+    { value: "Win", label: "win" },
+    { value: "Loss", label: "loss" },
   ];
   useEffect(() => {
     if (!entry || !exit || !stopLoss) return;
 
+<<<<<<< HEAD
     setIsLoading(true); // show loader
+=======
+    // setIsLoading(true); // show loader
+>>>>>>> feat/journal-trade
     setValue("riskToReward", ""); // clear old value while loading
 
     const timer = setTimeout(() => {
       const calculated = calculateRiskReward(entry, exit, stopLoss);
       setValue("riskToReward", calculated || "");
+<<<<<<< HEAD
       setIsLoading(false); // hide loader
+=======
+      // setIsLoading(false); // hide loader
+>>>>>>> feat/journal-trade
     }, 500); // debounce time
 
     return () => clearTimeout(timer);
   }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
+<<<<<<< HEAD
     const formattedDate = formatJournalDate(data.date);
 
     reset();
     console.log({
+=======
+    const formattedDate = formatJournalTradeDate(data.date);
+    reset();
+    createNewTrade({
+>>>>>>> feat/journal-trade
       ...data,
       date: formattedDate,
     });
@@ -67,15 +103,17 @@ function JournalForm({ handleCloseModal }) {
             <div className="!my-0 flex h-10 rounded-lg bg-[rgba(239,239,239,0.5)] px-1 py-0.5">
               <Button
                 type="button"
-                onClick={() => setValue("tradeType", "Long")}
-                className={`!my-0 !cursor-default !p-0 py-5 ${tradeType === "Long" ? "!bg-primary-500" : "!text-gray !bg-transparent !font-medium"}`}
+                onClick={() => setValue("type", "Long")}
+                className={`!my-0 !cursor-default !p-0 py-5 ${type === "Long" ? "!bg-primary-500" : "!text-gray !bg-transparent !font-medium"}`}
+                disabled={isCreating}
               >
                 Long
               </Button>
               <Button
                 type="button"
-                onClick={() => setValue("tradeType", "Short")}
-                className={`!my-0 !cursor-default !p-0 py-5 ${tradeType === "Short" ? "!bg-primary-500" : "!text-gray !bg-transparent !font-medium"}`}
+                onClick={() => setValue("type", "Short")}
+                className={`!my-0 !cursor-default !p-0 py-5 ${type === "Short" ? "!bg-primary-500" : "!text-gray !bg-transparent !font-medium"}`}
+                disabled={isCreating}
               >
                 Short
               </Button>
@@ -157,6 +195,7 @@ function JournalForm({ handleCloseModal }) {
                 className={`bg-[#f7f7f7] pl-2 placeholder:text-left focus:!hidden`}
                 readOnly
                 {...register("riskToReward")}
+                disabled={isCreating}
               />
               {isLoading && (
                 <div className="absolute top-[-16px] right-0">
@@ -179,6 +218,7 @@ function JournalForm({ handleCloseModal }) {
                 inputPlaceholder={"e.g., BTC/USD"}
                 id="entry-price"
                 {...register("pair")}
+                disabled={isCreating}
               />
             </div>
           </div>
@@ -203,6 +243,7 @@ function JournalForm({ handleCloseModal }) {
                 type="text"
                 className="w-full pb-30 pl-2 placeholder:text-left"
                 {...register("notes")}
+                disabled={isCreating}
               />
             </div>
           </div>
@@ -212,10 +253,13 @@ function JournalForm({ handleCloseModal }) {
             <Button
               className="border-1 border-[rgba(0,0,0,0.2)] bg-transparent !text-gray-500"
               onClick={handleCloseModal}
+              disabled={isCreating}
             >
               Cancel
             </Button>
-            <Button type="submit">Save Trade</Button>
+            <Button type="submit" disabled={isCreating}>
+              {isEditingSession ? "Edit Trade" : "Save Trade"}
+            </Button>
           </div>
         </div>
       </form>
