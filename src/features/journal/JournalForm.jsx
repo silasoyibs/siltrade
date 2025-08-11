@@ -6,14 +6,6 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import FormDatepicker from "../../ui/FormDatePicker";
 import Select from "react-select";
 import InputBox from "../../ui/InputBox.Jsx";
-<<<<<<< HEAD
-import { calculateRiskReward, formatJournalDate } from "../../utils/helpers";
-import { useEffect, useState } from "react";
-import Loader from "../../ui/Loader";
-
-function JournalForm({ handleCloseModal }) {
-  const [isLoading, setIsLoading] = useState(false);
-=======
 import {
   calculateRiskReward,
   formatJournalTradeDate,
@@ -28,7 +20,6 @@ function JournalForm({ handleCloseModal }) {
   const { createNewTrade, isCreating } = useCreateTrade();
   const { id: editTradeId, ...editValues } = useJournal().journal || {};
   const isEditingSession = editTradeId;
->>>>>>> feat/journal-trade
   const { setValue, watch, handleSubmit, reset, register, control } = useForm({
     defaultValues: isEditingSession
       ? editValues
@@ -36,11 +27,7 @@ function JournalForm({ handleCloseModal }) {
           type: "Long",
         },
   });
-<<<<<<< HEAD
-  const tradeType = watch("tradeType");
-=======
   const type = watch("type");
->>>>>>> feat/journal-trade
   const entry = watch("entry");
   const exit = watch("exit");
   const stopLoss = watch("stopLoss");
@@ -52,37 +39,22 @@ function JournalForm({ handleCloseModal }) {
   useEffect(() => {
     if (!entry || !exit || !stopLoss) return;
 
-<<<<<<< HEAD
-    setIsLoading(true); // show loader
-=======
     // setIsLoading(true); // show loader
->>>>>>> feat/journal-trade
     setValue("riskToReward", ""); // clear old value while loading
 
     const timer = setTimeout(() => {
       const calculated = calculateRiskReward(entry, exit, stopLoss);
       setValue("riskToReward", calculated || "");
-<<<<<<< HEAD
-      setIsLoading(false); // hide loader
-=======
       // setIsLoading(false); // hide loader
->>>>>>> feat/journal-trade
     }, 500); // debounce time
 
     return () => clearTimeout(timer);
   }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
-<<<<<<< HEAD
-    const formattedDate = formatJournalDate(data.date);
-
-    reset();
-    console.log({
-=======
     const formattedDate = formatJournalTradeDate(data.date);
     reset();
     createNewTrade({
->>>>>>> feat/journal-trade
       ...data,
       date: formattedDate,
     });
@@ -179,29 +151,19 @@ function JournalForm({ handleCloseModal }) {
             </div>
           </div>
           <div>
-            <Controller
-              control={control}
-              name="date"
-              defaultValue={new Date()}
-              render={({ field }) => <FormDatepicker {...field} />}
-            />
+            <FormDatepicker />
           </div>
           <div>
             <label className="block">R:R Ratio</label>
             <div className="relative">
               <InputBox
-                inputPlaceholder={"1:5"}
+                inputPlaceholder={"1:5:1"}
                 type="text"
                 className={`bg-[#f7f7f7] pl-2 placeholder:text-left focus:!hidden`}
                 readOnly
                 {...register("riskToReward")}
                 disabled={isCreating}
               />
-              {isLoading && (
-                <div className="absolute top-[-16px] right-0">
-                  <Loader />
-                </div>
-              )}
             </div>
             <p className="text-gray font-medium">
               Auto-calculate based on entry and exist price
