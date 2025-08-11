@@ -7,3 +7,36 @@ export async function getTrades() {
   }
   return Trades;
 }
+
+export async function createNewTrade(newTrade) {
+  const { data, error } = await supabase
+    .from("Trades")
+    .insert([{ ...newTrade }]);
+  if (error) throw new Error(error.message, "could not create new trade");
+  console.log("data sucessfully inserted");
+  return { data };
+}
+
+export async function deleteTrade(id) {
+  const { error } = await supabase.from("Trades").delete().eq("id", id);
+  if (error) {
+    throw new Error("Trade could not be deleted");
+  } else {
+    console.log("trade has been deleted");
+  }
+}
+
+export async function editTrade(id, editedTrade) {
+  const { data, error } = await supabase
+    .from("Trades")
+    .update({ ...editedTrade })
+    .eq("id", id)
+    .select();
+  if (error) {
+    throw new Error("Trade could not be edited");
+  } else {
+    console.log("trade edited sucessfully");
+  }
+
+  return { data };
+}
