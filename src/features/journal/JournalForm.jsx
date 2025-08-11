@@ -7,6 +7,7 @@ import FormDatepicker from "../../ui/FormDatePicker";
 import Select from "react-select";
 import InputBox from "../../ui/InputBox.Jsx";
 import {
+  calculateResult,
   calculateRiskReward,
   formatJournalTradeDate,
 } from "../../utils/helpers";
@@ -14,10 +15,12 @@ import { useEffect } from "react";
 // import Loader from "../../ui/Loader";
 import { useCreateTrade } from "./useCreateTrade";
 import { useJournal } from "../../contexts/JournalContext";
+import { useEditTrade } from "./useEditTrade";
 
 function JournalForm({ handleCloseModal }) {
   // const [isLoading, setIsLoading] = useState(false);
   const { createNewTrade, isCreating } = useCreateTrade();
+  const { editTrade, isEditing } = useEditTrade();
   const { id: editTradeId, ...editValues } = useJournal().journal || {};
   const isEditingSession = editTradeId;
   const { setValue, watch, handleSubmit, reset, register, control } = useForm({
@@ -31,6 +34,7 @@ function JournalForm({ handleCloseModal }) {
   const entry = watch("entry");
   const exit = watch("exit");
   const stopLoss = watch("stopLoss");
+  const { result } = calculateResult(entry, exit, stopLoss, type);
 
   const tradeStatus = [
     { value: "Win", label: "win" },
@@ -52,12 +56,41 @@ function JournalForm({ handleCloseModal }) {
   }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
-    const formattedDate = formatJournalTradeDate(data.date);
-    reset();
-    createNewTrade({
-      ...data,
-      date: formattedDate,
-    });
+    // const formattedDate = formatJournalTradeDate(data.date);
+    const formattedDate = data.date;
+    if (isEditingSession) {
+      console.log(editTradeId, data);
+      editTrade(
+        {
+          id: editTradeId,
+          editedValues: {
+            ...data,
+            date: formattedDate,
+            result,
+          },
+        },
+        {
+          onSuccess: () => {
+            reset();
+            handleCloseModal();
+          },
+        },
+      );
+    } else {
+      createNewTrade(
+        {
+          ...data,
+          date: formattedDate,
+          result,
+        },
+        {
+          onSuccess: () => {
+            reset();
+            handleCloseModal();
+          },
+        },
+      );
+    }
   }
 
   return (
@@ -151,7 +184,7 @@ function JournalForm({ handleCloseModal }) {
             </div>
           </div>
           <div>
-            <FormDatepicker />
+            <FormDatepicker control={control} name="date" />
           </div>
           <div>
             <label className="block">R:R Ratio</label>
