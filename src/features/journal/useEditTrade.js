@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export function useEditTrade() {
   const queryClient = useQueryClient();
   const { mutate: editTrade, isPending: isEditing } = useMutation({
-    mutationFn: editTradeAPI,
+    mutationFn: ({ id, editedValues }) => editTradeAPI(id, editedValues),
     onSuccess: () => {
       toast.success("Trade edited sucessfully");
       queryClient.invalidateQueries({ queryKey: ["trades"] });
