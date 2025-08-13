@@ -1,8 +1,13 @@
 import { NavLink } from "react-router-dom";
 import Card from "../../ui/Card";
 import RecentTradeList from "./RecentTradeList";
+import { useTrades } from "../journal/useTrades";
+import Spinner from "../../ui/Spinner";
 
 function RecentTrades() {
+  const { trades, isPending } = useTrades();
+  console.log(trades);
+
   return (
     <Card className={"h-min"}>
       <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">
@@ -19,52 +24,10 @@ function RecentTrades() {
         <span>R:R</span>
         <span>RESULT</span>
       </div>
-
-      <RecentTradeList
-        type="Long"
-        date="jul 29,2023"
-        pair="BTC/USD"
-        entry="29,450/30,120"
-        rr="2:1:1"
-        result={2.27}
-        status="Win"
-      />
-      <RecentTradeList
-        type="Long"
-        date="jul 29,2023"
-        pair="ETH/USD"
-        entry="29,450/30,120"
-        rr="2:1:1"
-        result={2.27}
-        status="Win"
-      />
-      <RecentTradeList
-        type="Short"
-        date="jul 29,2023"
-        pair="BTC/USD"
-        entry="29,450/30,120"
-        rr="2:1:1"
-        result={2.27}
-        status="Win"
-      />
-      <RecentTradeList
-        type="Long"
-        date="jul 29,2023"
-        pair="BTC/USD"
-        entry="29,450/30,120"
-        rr="2:1:1"
-        result={2.27}
-        status="Win"
-      />
-      <RecentTradeList
-        type="Short"
-        date="jul 29,2023"
-        pair="ADA/USD"
-        entry="29,450/30,120"
-        rr="2:1:1"
-        result={2.27}
-        status="Loss"
-      />
+      {isPending && <Spinner />}
+      {trades.map((trade) => {
+        <RecentTradeList key={trade.id} trade={trade} />;
+      })}
     </Card>
   );
 }
