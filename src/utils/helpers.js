@@ -70,3 +70,45 @@ export function formatJournalTradeDate(dateString) {
   const date = parse(dateString, "M/d/yyyy", new Date());
   return format(date, "MMM d, yyyy");
 }
+
+// trader winrate
+export function calculateWinRate(trades) {
+  if (!trades?.length) return;
+  const wins = trades.filter((trade) => trade.status === "Win").length;
+  return ((wins / trades.length) * 100).toFixed(1);
+}
+// trader lossrate
+export function calculateLossRate(trades) {
+  if (!trades?.length) return;
+  const Loss = trades.filter((trade) => trade.status === "Loss").length;
+  return ((Loss / trades.length) * 100).toFixed(1);
+}
+
+// trader total trade
+export function calculateTotalTrades(trades) {
+  if (!trades?.length) return;
+  return trades.length;
+}
+
+// trader average rr
+export function calculateAverageRR(trades) {
+  if (!trades?.length) return 0;
+
+  const closedTrades = trades.filter((t) =>
+    ["win", "loss"].includes(t.status.toLowerCase()),
+  );
+
+  if (!closedTrades.length) return 0;
+
+  const totalRR = closedTrades.reduce((sum, trade) => {
+    if (!trade.riskToReward) return sum;
+
+    const [reward, risk] = trade.riskToReward.split(":").map(Number);
+
+    if (isNaN(reward) || isNaN(risk) || risk === 0) return sum;
+
+    return sum + reward / risk;
+  }, 0);
+
+  return totalRR / closedTrades.length;
+}
