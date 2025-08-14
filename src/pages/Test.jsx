@@ -1,5 +1,7 @@
+import StatsBoxSkeleton from "../features/dashboard/StatsBoxSkeleton";
+
 function Test() {
-  return <div>test</div>;
+  return <StatsBoxSkeleton />;
 }
 
 export default Test;
