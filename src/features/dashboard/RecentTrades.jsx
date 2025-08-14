@@ -1,13 +1,11 @@
 import { NavLink } from "react-router-dom";
 import Card from "../../ui/Card";
 import RecentTradeList from "./RecentTradeList";
-import { useTrades } from "../journal/useTrades";
-import Spinner from "../../ui/Spinner";
+import SkeletonLoader from "../../ui/skeletonLoader";
+import { useRecentTrades } from "./useRecentTrades";
 
 function RecentTrades() {
-  const { trades, isPending } = useTrades();
-  console.log(trades);
-
+  const { recentTrades, isPending } = useRecentTrades();
   return (
     <Card className={"h-min"}>
       <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">
@@ -24,10 +22,10 @@ function RecentTrades() {
         <span>R:R</span>
         <span>RESULT</span>
       </div>
-      {isPending && <Spinner />}
-      {trades.map((trade) => {
-        <RecentTradeList key={trade.id} trade={trade} />;
-      })}
+      {isPending && <SkeletonLoader />}
+      {recentTrades?.map((trade) => (
+        <RecentTradeList key={trade.id} trade={trade} />
+      ))}
     </Card>
   );
 }

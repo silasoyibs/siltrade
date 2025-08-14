@@ -38,3 +38,15 @@ export async function editTrade(id, editedValues) {
 
   return { data };
 }
+
+export async function getRecentTrades() {
+  const { data: recentTrades, error } = await supabase
+    .from("Trades")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(5);
+  if (error) {
+    throw new Error("Trades could not be loaded");
+  }
+  return recentTrades;
+}
