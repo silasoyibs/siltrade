@@ -1,9 +1,7 @@
-import { useTrades } from "../features/journal/useTrades";
+import StatsBoxSkeleton from "../features/dashboard/StatsBoxSkeleton";
 
 function Test() {
-  const { trades, isPending } = useTrades();
-  console.log(trades, isPending);
-  return <div>test</div>;
+  return <StatsBoxSkeleton />;
 }
 
 export default Test;

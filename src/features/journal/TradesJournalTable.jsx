@@ -2,13 +2,13 @@ import { NavLink } from "react-router-dom";
 import Card from "../../ui/Card";
 import TradeJournalRow from "./TradeJournalRow";
 import Button from "../../ui/Button";
-import { IoIosAdd, IoMdAddCircle } from "react-icons/io";
+import { IoMdAddCircle } from "react-icons/io";
 import { useTrades } from "./useTrades";
-import Spinner from "../../ui/Spinner";
 import Modal from "../../ui/Modal";
 import JournalForm from "./JournalForm";
 import { useState } from "react";
 import TableHeader from "./TableHeader";
+import SkeletonLoader from "../../ui/skeletonLoader";
 
 function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
@@ -20,7 +20,6 @@ function TradesJournalTable() {
     setIsOpen(true);
   }
 
-  if (isPending) return <Spinner />;
   return (
     <>
       <Card>
@@ -51,7 +50,8 @@ function TradesJournalTable() {
         </TableHeader>
 
         <div>
-          {trades.map((trade) => (
+          {isPending && <SkeletonLoader />}
+          {trades?.map((trade) => (
             <TradeJournalRow
               trade={trade}
               key={trade.id}

@@ -1,4 +1,5 @@
 import Card from "../../ui/Card";
+import StatsBoxSkeleton from "./StatsBoxSkeleton";
 
 function StatsBox({
   rateName,
@@ -7,7 +8,9 @@ function StatsBox({
   iconTotal,
   iconMonthly,
   Color,
+  isPending,
 }) {
+  if (isPending) return <StatsBoxSkeleton />;
   return (
     <Card className="grid grid-cols-[70px_1fr] gap-x-2 gap-y-4 px-6 py-8">
       <span
