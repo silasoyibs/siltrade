@@ -53,7 +53,7 @@ function TradeJournalRow({ trade, handleOpenModal }) {
       <span
         className={` ${status === "Win" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-15 items-center rounded-lg px-2 py-1 text-sm font-medium`}
       >
-        {status === "Win" ? `${result}%` : `${result}%`}
+        {status === "Win" ? `+${result}%` : `-${result}%`}
       </span>
       <span className="w-full truncate">{notes}</span>
       <div className="flex gap-2">

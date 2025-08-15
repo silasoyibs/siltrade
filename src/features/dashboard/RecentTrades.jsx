@@ -6,6 +6,7 @@ import { useRecentTrades } from "./useRecentTrades";
 
 function RecentTrades() {
   const { recentTrades, isPending } = useRecentTrades();
+
   return (
     <Card className={"h-min"}>
       <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">

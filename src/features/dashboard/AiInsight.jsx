@@ -6,8 +6,13 @@ import { IoWarning } from "react-icons/io5";
 import { TbGraphFilled } from "react-icons/tb";
 import Button from "../../ui/Button";
 import { FaWandMagicSparkles } from "react-icons/fa6";
+import { useTrades } from "../journal/useTrades";
+import { useAiInsight } from "./useAIInsight";
 
 function AiInsight() {
+  const { trades } = useTrades();
+  const { aiTradeInsight, isPending } = useAiInsight(trades);
+
   return (
     <Card>
       <div className="bg-primary-100 flex gap-4 rounded-t-lg p-5">
@@ -23,17 +28,20 @@ function AiInsight() {
         <AiInsightBox
           icon={<FaLightbulb className="text-primary mt-1 text-xl" />}
           tittle="Pattern Recognition"
-          body="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremqu  "
+          isPending={isPending}
+          body={aiTradeInsight?.patternRecognition}
         />
         <AiInsightBox
           icon={<IoWarning className="mt-1 text-xl text-yellow-400" />}
           tittle="Risk Management"
-          body="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremqu  "
+          isPending={isPending}
+          body={aiTradeInsight?.performanceInsights}
         />
         <AiInsightBox
           icon={<TbGraphFilled className="mt-1 text-xl text-green-500" />}
           tittle="Performance Insights"
-          body="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremqu "
+          isPending={isPending}
+          body={aiTradeInsight?.riskManagement}
         />
         <Button>
           <FaWandMagicSparkles className="text-white" />

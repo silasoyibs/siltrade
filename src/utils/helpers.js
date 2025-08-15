@@ -110,5 +110,5 @@ export function calculateAverageRR(trades) {
     return sum + reward / risk;
   }, 0);
 
-  return totalRR / closedTrades.length;
+  return (totalRR / closedTrades.length).toFixed(1);
 }
