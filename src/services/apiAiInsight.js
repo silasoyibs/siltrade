@@ -1,7 +1,7 @@
 import Groq from "groq-sdk";
 
 const groq = new Groq({
-  apiKey: import.meta.env.VITE_GROQ_API_KEY, // Make sure this is in your .env
+  // apiKey: import.meta.env.VITE_GROQ_API_KEY, // Make sure this is in your .env
   dangerouslyAllowBrowser: true, // ONLY for MVP testing — not safe for production
 });
 
