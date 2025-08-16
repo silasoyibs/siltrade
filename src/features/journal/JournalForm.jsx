@@ -6,11 +6,7 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import FormDatepicker from "../../ui/FormDatePicker";
 import Select from "react-select";
 import InputBox from "../../ui/InputBox.Jsx";
-import {
-  calculateResult,
-  calculateRiskReward,
-  formatJournalTradeDate,
-} from "../../utils/helpers";
+import { calculateResult, calculateRiskReward } from "../../utils/helpers";
 import { useEffect } from "react";
 // import Loader from "../../ui/Loader";
 import { useCreateTrade } from "./useCreateTrade";
@@ -56,8 +52,6 @@ function JournalForm({ handleCloseModal }) {
   }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
-    const formattedDate = formatJournalTradeDate(data.date);
-
     if (isEditingSession) {
       console.log(editTradeId, data);
       editTrade(
@@ -65,7 +59,6 @@ function JournalForm({ handleCloseModal }) {
           id: editTradeId,
           editedValues: {
             ...data,
-            date: formattedDate,
             result,
           },
         },
@@ -80,7 +73,6 @@ function JournalForm({ handleCloseModal }) {
       createNewTrade(
         {
           ...data,
-          date: formattedDate,
           result,
         },
         {
