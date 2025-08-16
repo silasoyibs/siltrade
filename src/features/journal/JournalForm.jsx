@@ -56,8 +56,8 @@ function JournalForm({ handleCloseModal }) {
   }, [entry, exit, stopLoss, setValue]);
 
   function onSubmit(data) {
-    // const formattedDate = formatJournalTradeDate(data.date);
-    const formattedDate = data.date;
+    const formattedDate = formatJournalTradeDate(data.date);
+
     if (isEditingSession) {
       console.log(editTradeId, data);
       editTrade(
