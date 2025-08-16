@@ -17,16 +17,17 @@ import {
 
 function StatsOverview() {
   const { trades, isPending } = useTrades();
-  const winRate = calculateWinRate(trades);
-  const lossRate = calculateLossRate(trades);
-  const totalTrades = calculateTotalTrades(trades);
-  const averageRiskToReward = calculateAverageRR(trades);
+  const { overallWinrate, monthlyWinrate } = calculateWinRate(trades);
+  const { overallLossrate, monthlyLossrate } = calculateLossRate(trades);
+  const { overallTotalTrades, monthlyTotalTrades } =
+    calculateTotalTrades(trades);
+  const { overallAverageRR, monthlyAverageRR } = calculateAverageRR(trades);
   return (
     <div className="grid grid-cols-4 gap-x-5">
       <StatsBox
         rateName="Win Rate"
-        rateTotalPercentage={`${winRate}%`}
-        rateMonthlyPercentage={`${2.1}%`}
+        rateTotalPercentage={`${overallWinrate}%`}
+        rateMonthlyPercentage={`${monthlyWinrate}%`}
         iconTotal={<IoMdTrendingUp className="text-2xl font-bold" />}
         iconMonthly={<IoMdArrowUp className="text-xl font-semibold" />}
         Color="bg-green-100  text-green-500"
@@ -34,8 +35,8 @@ function StatsOverview() {
       />
       <StatsBox
         rateName="Loss Rate"
-        rateTotalPercentage={`${lossRate}%`}
-        rateMonthlyPercentage={`${0.8}%`}
+        rateTotalPercentage={`${overallLossrate}%`}
+        rateMonthlyPercentage={`${monthlyLossrate}%`}
         iconTotal={<IoMdTrendingDown className="text-2xl font-bold" />}
         iconMonthly={<IoMdArrowUp className="text-xl font-semibold" />}
         Color="bg-red-100  text-red-500"
@@ -43,8 +44,8 @@ function StatsOverview() {
       />
       <StatsBox
         rateName="Total trades"
-        rateTotalPercentage={totalTrades}
-        rateMonthlyPercentage={2.1}
+        rateTotalPercentage={overallTotalTrades}
+        rateMonthlyPercentage={monthlyTotalTrades}
         iconTotal={<IoStatsChart className="text-2xl font-bold" />}
         iconMonthly={<IoMdAdd className="text-xl font-semibold" />}
         Color="bg-blue-100  text-blue-500"
@@ -52,8 +53,8 @@ function StatsOverview() {
       />
       <StatsBox
         rateName="Average R:R"
-        rateTotalPercentage={`${averageRiskToReward}:1`}
-        rateMonthlyPercentage={0.1}
+        rateTotalPercentage={`${overallAverageRR}:1`}
+        rateMonthlyPercentage={`${monthlyAverageRR}:1`}
         iconTotal={<LuScale className="text-2xl font-bold" />}
         iconMonthly={<IoMdArrowUp className="text-xl font-semibold" />}
         Color="bg-primary-100  text-primary-500"

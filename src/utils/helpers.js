@@ -72,44 +72,136 @@ export function formatJournalTradeDate(dateString) {
   return format(date, "MMM dd, yyyy");
 }
 
-// trader winrate
+// trader winrate (overall + this month)
 export function calculateWinRate(trades) {
-  if (!trades?.length) return;
-  const wins = trades.filter((trade) => trade.status === "Win").length;
-  return ((wins / trades.length) * 100).toFixed(1);
+  if (!trades?.length) return { overallWinrate: 0, monthlyWinrate: 0 };
+
+  // ---- Overall win rate ----
+  const totalWins = trades.filter((trade) => trade.status === "Win").length;
+  const overallWinrate = ((totalWins / trades.length) * 100).toFixed(1);
+
+  // ---- Monthly win rate ----
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  const monthlyTrades = trades.filter((trade) => {
+    const tradeDate = new Date(trade.date);
+    return (
+      tradeDate.getMonth() === currentMonth &&
+      tradeDate.getFullYear() === currentYear
+    );
+  });
+
+  let monthlyWinrate = 0;
+  if (monthlyTrades.length) {
+    const monthlyWins = monthlyTrades.filter((t) => t.status === "Win").length;
+    monthlyWinrate = ((monthlyWins / monthlyTrades.length) * 100).toFixed(1);
+  }
+
+  return { overallWinrate, monthlyWinrate };
 }
-// trader lossrate
+
+// trader lossrate (overall + this month)
 export function calculateLossRate(trades) {
-  if (!trades?.length) return;
-  const Loss = trades.filter((trade) => trade.status === "Loss").length;
-  return ((Loss / trades.length) * 100).toFixed(1);
+  if (!trades?.length) return { overallLossrate: 0, monthlyLossrate: 0 };
+
+  // ---- Overall loss rate ----
+  const totalLosses = trades.filter((trade) => trade.status === "Loss").length;
+  const overallLossrate = ((totalLosses / trades.length) * 100).toFixed(1);
+
+  // ---- Monthly loss rate ----
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  const monthlyTrades = trades.filter((trade) => {
+    const tradeDate = new Date(trade.date);
+    return (
+      tradeDate.getMonth() === currentMonth &&
+      tradeDate.getFullYear() === currentYear
+    );
+  });
+
+  let monthlyLossrate = 0;
+  if (monthlyTrades.length) {
+    const monthlyLosses = monthlyTrades.filter(
+      (t) => t.status === "Loss",
+    ).length;
+    monthlyLossrate = ((monthlyLosses / monthlyTrades.length) * 100).toFixed(1);
+  }
+
+  return { overallLossrate, monthlyLossrate };
 }
 
 // trader total trade
+// trader total trades (overall + this month)
 export function calculateTotalTrades(trades) {
-  if (!trades?.length) return;
-  return trades.length;
+  if (!trades?.length) return { overallTotalTrades: 0, monthlyTotalTrades: 0 };
+
+  // ---- Overall total trades ----
+  const overallTotalTrades = trades.length;
+
+  // ---- Monthly total trades ----
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  const monthlyTrades = trades.filter((trade) => {
+    const tradeDate = new Date(trade.date);
+    return (
+      tradeDate.getMonth() === currentMonth &&
+      tradeDate.getFullYear() === currentYear
+    );
+  });
+
+  const monthlyTotalTrades = monthlyTrades.length;
+
+  return { overallTotalTrades, monthlyTotalTrades };
 }
 
-// trader average rr
+// trader average R:R (overall + this month)
 export function calculateAverageRR(trades) {
-  if (!trades?.length) return 0;
+  if (!trades?.length) return { overallAverageRR: 0, monthlyAverageRR: 0 };
 
-  const closedTrades = trades.filter((t) =>
-    ["win", "loss"].includes(t.status.toLowerCase()),
-  );
+  // ---- Helper to calculate avg R:R from a given list of trades ----
+  const getAverageRR = (tradeList) => {
+    const closedTrades = tradeList.filter((t) =>
+      ["win", "loss"].includes(t.status.toLowerCase()),
+    );
 
-  if (!closedTrades.length) return 0;
+    if (!closedTrades.length) return 0;
 
-  const totalRR = closedTrades.reduce((sum, trade) => {
-    if (!trade.riskToReward) return sum;
+    const totalRR = closedTrades.reduce((sum, trade) => {
+      if (!trade.riskToReward) return sum;
 
-    const [reward, risk] = trade.riskToReward.split(":").map(Number);
+      const [reward, risk] = trade.riskToReward.split(":").map(Number);
 
-    if (isNaN(reward) || isNaN(risk) || risk === 0) return sum;
+      if (isNaN(reward) || isNaN(risk) || risk === 0) return sum;
 
-    return sum + reward / risk;
-  }, 0);
+      return sum + reward / risk;
+    }, 0);
 
-  return (totalRR / closedTrades.length).toFixed(1);
+    return (totalRR / closedTrades.length).toFixed(1);
+  };
+
+  // ---- Overall Average R:R ----
+  const overallAverageRR = getAverageRR(trades);
+
+  // ---- Monthly Average R:R ----
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  const monthlyTrades = trades.filter((trade) => {
+    const tradeDate = new Date(trade.date);
+    return (
+      tradeDate.getMonth() === currentMonth &&
+      tradeDate.getFullYear() === currentYear
+    );
+  });
+
+  const monthlyAverageRR = getAverageRR(monthlyTrades);
+
+  return { overallAverageRR, monthlyAverageRR };
 }
