@@ -1,20 +1,29 @@
-import { BsFillFilterCircleFill } from "react-icons/bs";
 import Select, { components } from "react-select";
-const CustomControl = (props) => (
-  <components.Control {...props}>
-    <span style={{ marginLeft: "8px", marginRight: "6px", color: "#555" }}>
-      <BsFillFilterCircleFill />
-    </span>
-    {props.children}
-  </components.Control>
-);
 
-function FilterDropdown({ options }) {
+const CustomControl = ({ children, ...props }) => {
+  const { selectProps } = props;
+  const Icon = selectProps.icon; // 👈 get icon from props
+  return (
+    <components.Control {...props}>
+      {Icon && (
+        <span
+          style={{ marginLeft: "8px", marginRight: "6px", color: "#7c3aed" }}
+        >
+          {Icon}
+        </span>
+      )}
+      {children}
+    </components.Control>
+  );
+};
+
+function FilterDropdown({ options, placeholder, icon }) {
   return (
     <Select
+      placeholder={placeholder}
       options={options}
-      defaultValue={options[0]} // "All"
       components={{ Control: CustomControl }}
+      icon={icon}
       styles={{
         control: (base) => ({
           ...base,
