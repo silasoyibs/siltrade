@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import Select, { components } from "react-select";
 
 const CustomControl = ({ children, ...props }) => {
@@ -17,7 +18,22 @@ const CustomControl = ({ children, ...props }) => {
   );
 };
 
-function FilterDropdown({ options, placeholder, icon }) {
+function FilterDropdown({ options, placeholder, icon, paramKey, onChange }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  function handleClick(selected) {
+    const searchValue = selected.value;
+
+    if (paramKey) {
+      searchParams.set(paramKey, searchValue);
+      setSearchParams(searchParams);
+    }
+    setSearchParams(searchParams);
+
+    // 👇 forward value to parent if provided
+    if (onChange) {
+      onChange(searchValue);
+    }
+  }
   return (
     <Select
       placeholder={placeholder}
@@ -38,6 +54,9 @@ function FilterDropdown({ options, placeholder, icon }) {
           `cursor-pointer transition-all duration-200 rounded-md ${
             isFocused ? "!bg-primary-100 !text-primary" : "text-black"
           } ${isSelected ? "!bg-transparent !text-primary" : "text-black"}`,
+      }}
+      onChange={(selected) => {
+        handleClick(selected);
       }}
     />
   );

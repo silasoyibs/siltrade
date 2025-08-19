@@ -7,8 +7,8 @@ function TradeJournal() {
     <div className="p-5">
       <div className="mb-5">
         <p className="mb-7 text-lg font-medium"> Trade Performance</p>
-        <Filter />
         <JournalContextProvider>
+          <Filter />
           <TradesJournalTable />
         </JournalContextProvider>
       </div>
