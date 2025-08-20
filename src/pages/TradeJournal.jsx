@@ -1,5 +1,6 @@
 import { JournalContextProvider } from "../contexts/JournalContext";
 import Filter from "../features/journal/Filter";
+import Pagination from "../features/journal/Pagination";
 import TradesJournalTable from "../features/journal/TradesJournalTable";
 
 function TradeJournal() {
@@ -10,6 +11,7 @@ function TradeJournal() {
         <JournalContextProvider>
           <Filter />
           <TradesJournalTable />
+          <Pagination />
         </JournalContextProvider>
       </div>
     </div>
