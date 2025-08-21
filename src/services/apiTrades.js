@@ -1,16 +1,17 @@
 import supabase from "./supabase";
 
-export async function getTrades({ page, limit } = {}) {
+export async function getTrades(page, limit) {
   let query = supabase.from("Trades").select("*", { count: "exact" });
 
   // Apply pagination only if page & limit are provided
   if (page !== undefined && limit !== undefined) {
+    console.log("not working");
     const from = (page - 1) * limit;
     const to = from + limit - 1;
     query = query.range(from, to);
   }
 
-  const { data: Trades, error, count } = await query;
+  const { data, error, count } = await query;
 
   if (error) {
     throw new Error("Trades could not be loaded");
@@ -18,11 +19,11 @@ export async function getTrades({ page, limit } = {}) {
 
   // If pagination is used, return both data and totalCount
   if (page !== undefined && limit !== undefined) {
-    return { Trades, totalCount: count };
+    return { data, totalCount: count };
   }
-
+  console.log("working");
   // Otherwise, return just the trades (like your original function)
-  return Trades;
+  return data;
 }
 
 export async function createNewTrade(newTrade) {

@@ -1,31 +1,48 @@
 import Button from "../../ui/Button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-export function Pagination() {
-  const itemsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+export function Pagination({
+  currentPage,
+  totalCount,
+  itemsPerPage,
+  setSearchParams,
+  totalNumTrades,
+}) {
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
-  // Handlers
+  // Handlers update the query param `page`
   function handleNextPage() {
-    setCurrentPage((p) =>
-      Math.min(p + 1, Math.ceil(totalCount / itemsPerPage)),
-    );
-  }
-  function handlePrevPage() {
-    setCurrentPage((p) => Math.max(p - 1, 1));
+    if (currentPage < totalPages) {
+      setSearchParams((prev) => {
+        const params = new URLSearchParams(prev);
+        params.set("page", currentPage + 1);
+        return params;
+      });
+    }
   }
 
-  // How many trades are currently shown
-  const shownCount = Math.min(currentPage * itemsPerPage, totalCount);
+  function handlePrevPage() {
+    if (currentPage > 1) {
+      setSearchParams((prev) => {
+        const params = new URLSearchParams(prev);
+        params.set("page", currentPage - 1);
+        return params;
+      });
+    }
+  }
+
+  // // How many trades are currently shown
+  // const shownCount = Math.min(currentPage * itemsPerPage, totalCount);
+  // const startCount = (currentPage - 1) * itemsPerPage + 1;
 
   return (
     <div className="mt-1">
       {/* Pagination controls */}
       <div className="flex items-center justify-between">
         <span className="text-sm">
-          Showing <strong>{shownCount}</strong> out of{" "}
-          <strong>{totalCount}</strong> trades
+          Showing
+          <strong className="px-1">{totalNumTrades}</strong>
+          of <strong>{totalCount}</strong> trades
         </span>
         <div className="flex gap-4">
           <Button
@@ -44,7 +61,7 @@ export function Pagination() {
               "hover:bg-primary !gap-0 border-1 border-[rgba(0,0,0,0.2)] bg-transparent px-3 text-sm !text-gray-500 hover:!text-white"
             }
             onClick={handleNextPage}
-            disabled={shownCount >= totalCount}
+            disabled={currentPage === totalPages}
           >
             Next <IoIosArrowForward />
           </Button>

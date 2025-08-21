@@ -6,20 +6,31 @@ import { IoMdAddCircle } from "react-icons/io";
 import { useTrades } from "./useTrades";
 import Modal from "../../ui/Modal";
 import JournalForm from "./JournalForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableHeader from "./TableHeader";
 import SkeletonLoader from "../../ui/skeletonLoader";
+import Pagination from "./Pagination";
+import { ITEMS_PER_PAGE } from "../../utils/constants";
 
 function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
   const [searchParams] = useSearchParams();
-  const { trades, isPending } = useTrades();
+  const { trades, isPending, totalCount } = useTrades(1, ITEMS_PER_PAGE);
+  const totalNumTrades = trades?.length;
+
+  console.log(totalNumTrades);
+
   function handleCloseModal() {
     setIsOpen(false);
   }
   function handleOpenModal() {
     setIsOpen(true);
   }
+
+  useEffect(() => {
+    console.log(totalCount, trades);
+  }, [totalCount, trades]);
+
   // filtering trades based on status
   const filterTradeValue = searchParams.get("trade-status") || "All";
   let filteredTrades;
@@ -88,6 +99,7 @@ function TradesJournalTable() {
           ))}
         </div>
       </Card>
+      <Pagination totalNumTrades={totalNumTrades} totalCount={totalCount} />
       {isOpen && (
         <Modal>
           <JournalForm handleCloseModal={handleCloseModal} />
