@@ -11,7 +11,7 @@ function TradeJournal() {
         <JournalContextProvider>
           <Filter />
           <TradesJournalTable />
-          <Pagination />
+          {/* <Pagination /> */}
         </JournalContextProvider>
       </div>
     </div>

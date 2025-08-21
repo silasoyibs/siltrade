@@ -2,7 +2,7 @@ import { FaCalendarDay } from "react-icons/fa";
 import FilterTag from "../../ui/FilterTag";
 import FilterDropdown from "./FilterDropdown";
 import { BsFillFilterCircleFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Filter() {
   const tradeStatusOption = [
@@ -58,7 +58,7 @@ function Filter() {
           <FilterTag
             tagText={selectedFilters.date}
             className="bg-purple-100 text-purple-600"
-            onClick={() => handleFilterValue("date")}
+            onClick={() => handleRemoveFilterTag("date")}
           />
         )}
         {selectedFilters.status && selectedFilters.status !== "All" && (
@@ -67,7 +67,7 @@ function Filter() {
               selectedFilters.status === "Win" ? "Wins Only" : "Losses Only"
             }
             className={` ${selectedFilters.status === "Win" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}
-            onClick={() => handleFilterValue("status")}
+            onClick={() => handleRemoveFilterTag("status")}
           />
         )}
       </div>
