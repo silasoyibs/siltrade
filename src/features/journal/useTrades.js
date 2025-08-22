@@ -3,7 +3,7 @@ import { getTrades } from "../../services/apiTrades";
 
 export function useTrades(page, limit) {
   const { data, isPending } = useQuery({
-    queryKey: ["trades"],
+    queryKey: ["trades", page, limit],
     queryFn: () => getTrades(page, limit),
   });
   return {

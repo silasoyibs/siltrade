@@ -14,11 +14,14 @@ import { ITEMS_PER_PAGE } from "../../utils/constants";
 
 function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
-  const { trades, isPending, totalCount } = useTrades(1, ITEMS_PER_PAGE);
-  const totalNumTrades = trades?.length;
+  const { trades, isPending, totalCount } = useTrades(
+    currentPage,
+    ITEMS_PER_PAGE,
+  );
 
-  console.log(totalNumTrades);
+  const totalNumTrades = trades?.length;
 
   function handleCloseModal() {
     setIsOpen(false);
@@ -28,8 +31,8 @@ function TradesJournalTable() {
   }
 
   useEffect(() => {
-    console.log(totalCount, trades);
-  }, [totalCount, trades]);
+    console.log(totalCount, trades, currentPage, totalNumTrades);
+  }, [totalCount, trades, currentPage, totalNumTrades]);
 
   // filtering trades based on status
   const filterTradeValue = searchParams.get("trade-status") || "All";
@@ -99,7 +102,12 @@ function TradesJournalTable() {
           ))}
         </div>
       </Card>
-      <Pagination totalNumTrades={totalNumTrades} totalCount={totalCount} />
+      <Pagination
+        totalNumTrades={totalNumTrades}
+        totalCount={totalCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       {isOpen && (
         <Modal>
           <JournalForm handleCloseModal={handleCloseModal} />

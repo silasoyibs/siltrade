@@ -1,34 +1,31 @@
+import { useEffect, useState } from "react";
 import Button from "../../ui/Button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { ITEMS_PER_PAGE } from "../../utils/constants";
 
 export function Pagination({
   currentPage,
   totalCount,
-  itemsPerPage,
-  setSearchParams,
   totalNumTrades,
+  setCurrentPage,
 }) {
-  const totalPages = Math.ceil(totalCount / itemsPerPage);
+  const shownSoFar = (currentPage - 1) * ITEMS_PER_PAGE + totalNumTrades;
 
   // Handlers update the query param `page`
   function handleNextPage() {
-    if (currentPage < totalPages) {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        params.set("page", currentPage + 1);
-        return params;
-      });
-    }
+    // setCount((currCount) => currCount + count);
+    setCurrentPage((c) => c + 1);
   }
 
   function handlePrevPage() {
-    if (currentPage > 1) {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        params.set("page", currentPage - 1);
-        return params;
-      });
-    }
+    setCurrentPage((c) => c - 1);
+    // if (currentPage > 1) {
+    //   setSearchParams((prev) => {
+    //     const params = new URLSearchParams(prev);
+    //     params.set("page", currentPage - 1);
+    //     return params;
+    //   });
+    // }
   }
 
   // // How many trades are currently shown
@@ -41,16 +38,16 @@ export function Pagination({
       <div className="flex items-center justify-between">
         <span className="text-sm">
           Showing
-          <strong className="px-1">{totalNumTrades}</strong>
+          <strong className="px-1">{shownSoFar}</strong>
           of <strong>{totalCount}</strong> trades
         </span>
         <div className="flex gap-4">
           <Button
             onClick={handlePrevPage}
-            disabled={currentPage === 1}
             className={
               "hover:bg-primary !gap-0 border-1 border-[rgba(0,0,0,0.2)] bg-transparent px-3 text-sm !text-gray-500 hover:!text-white"
             }
+            disabled={currentPage === 1}
           >
             <IoIosArrowBack />
             Prev
@@ -61,7 +58,7 @@ export function Pagination({
               "hover:bg-primary !gap-0 border-1 border-[rgba(0,0,0,0.2)] bg-transparent px-3 text-sm !text-gray-500 hover:!text-white"
             }
             onClick={handleNextPage}
-            disabled={currentPage === totalPages}
+            disabled={shownSoFar === totalCount}
           >
             Next <IoIosArrowForward />
           </Button>
