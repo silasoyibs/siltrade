@@ -1,14 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTrades } from "../../services/apiTrades";
+import { getPaginatedTrades, getTrades } from "../../services/apiTrades";
 
-export function useTrades(page, limit) {
+// Use this when you need pagination
+export function usePaginatedTrades(page, limit) {
   const { data, isPending } = useQuery({
     queryKey: ["trades", page, limit],
-    queryFn: () => getTrades(page, limit),
+    queryFn: () => getPaginatedTrades(page, limit),
+    keepPreviousData: true,
   });
   return {
-    trades: data?.data ?? [], // this is your "rows"
-    totalCount: data?.totalCount ?? 0, // this is the count
+    trades: data?.data ?? [], // rows for this page
+    totalCount: data?.totalCount ?? 0, // total rows in DB
+    isPending,
+  };
+}
+
+export function useTrades() {
+  const { data: trades, isPending } = useQuery({
+    queryKey: ["trades"],
+    queryFn: getTrades,
+  });
+  return {
+    trades,
     isPending,
   };
 }

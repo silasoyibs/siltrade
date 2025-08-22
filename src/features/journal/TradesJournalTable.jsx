@@ -3,7 +3,7 @@ import Card from "../../ui/Card";
 import TradeJournalRow from "./TradeJournalRow";
 import Button from "../../ui/Button";
 import { IoMdAddCircle } from "react-icons/io";
-import { useTrades } from "./useTrades";
+import { usePaginatedTrades } from "./useTrades";
 import Modal from "../../ui/Modal";
 import JournalForm from "./JournalForm";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
-  const { trades, isPending, totalCount } = useTrades(
+  const { trades, isPending, totalCount } = usePaginatedTrades(
     currentPage,
     ITEMS_PER_PAGE,
   );
