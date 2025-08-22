@@ -16,9 +16,12 @@ function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
+  const filterTradeValue = searchParams.get("trade-status") || "All";
+  const dateFilterValue = searchParams.get("date-range") || "All";
   const { trades, isPending, totalCount } = usePaginatedTrades(
     currentPage,
     ITEMS_PER_PAGE,
+    { status: filterTradeValue, dateRange: dateFilterValue },
   );
 
   const totalNumTrades = trades?.length;
@@ -33,38 +36,6 @@ function TradesJournalTable() {
   useEffect(() => {
     console.log(totalCount, trades, currentPage, totalNumTrades);
   }, [totalCount, trades, currentPage, totalNumTrades]);
-
-  // filtering trades based on status
-  const filterTradeValue = searchParams.get("trade-status") || "All";
-  let filteredTrades;
-  if (filterTradeValue === "All") filteredTrades = trades;
-  if (filterTradeValue === "Win")
-    filteredTrades = trades.filter((trade) => trade.status === "Win");
-  if (filterTradeValue === "Loss")
-    filteredTrades = trades.filter((trade) => trade.status === "Loss");
-  // filtering trades based on date
-  const dateFilterValue = searchParams.get("date-range") || "All";
-  const now = new Date();
-  if (dateFilterValue === "This month") {
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    filteredTrades = filteredTrades.filter(
-      (trade) => new Date(trade.date) >= startOfMonth,
-    );
-  }
-  if (dateFilterValue === "Last 30 days") {
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(now.getDate() - 30);
-    filteredTrades = filteredTrades.filter(
-      (trade) => new Date(trade.date) >= thirtyDaysAgo,
-    );
-  }
-  if (dateFilterValue === "Last 90 days") {
-    const ninetyDaysAgo = new Date();
-    ninetyDaysAgo.setDate(now.getDate() - 90);
-    filteredTrades = filteredTrades.filter(
-      (trade) => new Date(trade.date) >= ninetyDaysAgo,
-    );
-  }
 
   return (
     <>
@@ -93,7 +64,7 @@ function TradesJournalTable() {
         </TableHeader>
         <div>
           {isPending && <SkeletonLoader />}
-          {filteredTrades?.map((trade) => (
+          {trades?.map((trade) => (
             <TradeJournalRow
               trade={trade}
               key={trade.id}
