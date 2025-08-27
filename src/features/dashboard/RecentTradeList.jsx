@@ -2,6 +2,7 @@ import {
   HiOutlineArrowNarrowDown,
   HiOutlineArrowNarrowUp,
 } from "react-icons/hi";
+import { formatJournalTradeDate } from "../../utils/helpers";
 
 function RecentTradeList({ trade }) {
   const { type, date, entry, exit, pair, result, riskToReward, status } = trade;
@@ -17,7 +18,7 @@ function RecentTradeList({ trade }) {
         )}
         {type}
       </span>
-      <span className="text-gray">{date}</span>
+      <span className="text-gray">{formatJournalTradeDate(date)}</span>
       <span className="text-sm font-medium">{pair}</span>
       <span className="text-gray">{`${entry}/${exit}`}</span>
       <span className="text-gray justify-self-center">{riskToReward}</span>

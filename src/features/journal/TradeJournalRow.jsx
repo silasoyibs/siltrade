@@ -6,6 +6,7 @@ import {
 import { MdCheck, MdDelete, MdOutlineClose } from "react-icons/md";
 import { useDeleteTrade } from "./useDeleteTrade";
 import { useJournal } from "../../contexts/JournalContext";
+import { formatJournalTradeDate } from "../../utils/helpers";
 
 function TradeJournalRow({ trade, handleOpenModal }) {
   const {
@@ -38,7 +39,7 @@ function TradeJournalRow({ trade, handleOpenModal }) {
         )}
         {type}
       </span>
-      <span className="text-gray">{date}</span>
+      <span className="text-gray">{formatJournalTradeDate(date)}</span>
       <span className="text-sm font-medium">{pair}</span>
       <span className="text-gray">{`${entry}/${exit}`}</span>
       <span className="text-gray justify-self-center">{stopLoss}</span>

@@ -1,11 +1,9 @@
 import supabase from "./supabase";
 
 export async function getTrades() {
-  const { data: Trades, error } = await supabase.from("Trades").select("*");
-  if (error) {
-    throw new Error("Trades could not be loaded");
-  }
-  return Trades;
+  const { data, error } = await supabase.from("Trades").select("*");
+  if (error) throw new Error("All trades could not be loaded");
+  return data;
 }
 
 export async function createNewTrade(newTrade) {
@@ -49,4 +47,45 @@ export async function getRecentTrades() {
     throw new Error("Trades could not be loaded");
   }
   return recentTrades;
+}
+
+export async function getPaginatedTrades(page, limit, filters) {
+  const from = (page - 1) * limit;
+  const to = from + limit - 1;
+
+  let query = supabase.from("Trades").select("*", { count: "exact" });
+
+  // ----- Filter by status -----
+  if (filters?.status && filters.status !== "All") {
+    query = query.eq("status", filters.status);
+  }
+
+  // ----- Filter by date -----
+  if (filters?.dateRange && filters.dateRange !== "All") {
+    const now = new Date();
+
+    if (filters.dateRange === "This month") {
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      query = query.gte("date", startOfMonth.toISOString());
+    }
+
+    if (filters.dateRange === "Last 30 days") {
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(now.getDate() - 30);
+      query = query.gte("date", thirtyDaysAgo.toISOString());
+    }
+
+    if (filters.dateRange === "Last 90 days") {
+      const ninetyDaysAgo = new Date();
+      ninetyDaysAgo.setDate(now.getDate() - 90);
+      query = query.gte("date", ninetyDaysAgo.toISOString());
+    }
+  }
+
+  // ----- Apply pagination -----
+  const { data, error, count } = await query.range(from, to);
+
+  if (error) throw new Error("Trades could not be loaded");
+
+  return { data, totalCount: count };
 }

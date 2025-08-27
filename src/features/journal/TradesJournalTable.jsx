@@ -1,24 +1,41 @@
-import { NavLink } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Card from "../../ui/Card";
 import TradeJournalRow from "./TradeJournalRow";
 import Button from "../../ui/Button";
 import { IoMdAddCircle } from "react-icons/io";
-import { useTrades } from "./useTrades";
+import { usePaginatedTrades } from "./useTrades";
 import Modal from "../../ui/Modal";
 import JournalForm from "./JournalForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableHeader from "./TableHeader";
 import SkeletonLoader from "../../ui/skeletonLoader";
+import Pagination from "./Pagination";
+import { ITEMS_PER_PAGE } from "../../utils/constants";
 
 function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
-  const { trades, isPending } = useTrades();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams] = useSearchParams();
+  const filterTradeValue = searchParams.get("trade-status") || "All";
+  const dateFilterValue = searchParams.get("date-range") || "All";
+  const { trades, isPending, totalCount } = usePaginatedTrades(
+    currentPage,
+    ITEMS_PER_PAGE,
+    { status: filterTradeValue, dateRange: dateFilterValue },
+  );
+
+  const totalNumTrades = trades?.length;
+
   function handleCloseModal() {
     setIsOpen(false);
   }
   function handleOpenModal() {
     setIsOpen(true);
   }
+
+  useEffect(() => {
+    console.log(totalCount, trades, currentPage, totalNumTrades);
+  }, [totalCount, trades, currentPage, totalNumTrades]);
 
   return (
     <>
@@ -28,14 +45,11 @@ function TradesJournalTable() {
           className="flex min-w-[200px] justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5"
         >
           <span className="text-lg font-medium">All Trades</span>
-
           <Button className={"!my-0 max-w-35"} onClick={() => setIsOpen(true)}>
-            {" "}
             <IoMdAddCircle />
             Add Trade
           </Button>
         </div>
-
         <TableHeader>
           <div>TYPE</div>
           <div>DATE</div>
@@ -48,7 +62,6 @@ function TradesJournalTable() {
           <div>NOTES</div>
           <div>ACTION</div>
         </TableHeader>
-
         <div>
           {isPending && <SkeletonLoader />}
           {trades?.map((trade) => (
@@ -60,6 +73,12 @@ function TradesJournalTable() {
           ))}
         </div>
       </Card>
+      <Pagination
+        totalNumTrades={totalNumTrades}
+        totalCount={totalCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       {isOpen && (
         <Modal>
           <JournalForm handleCloseModal={handleCloseModal} />

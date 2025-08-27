@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import { getAiInsight } from "../services/apiAiInsight";
 
+import { getTrades } from "../services/apiTrades";
+
 function Test() {
-  return useEffect(() => {
-    // console.log(getAiInsight());
-  }, []); // only run when trades change
+  return console.log(getTrades(2, 4));
 }
 
 export default Test;

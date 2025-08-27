@@ -8,10 +8,14 @@ import Button from "../../ui/Button";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { useTrades } from "../journal/useTrades";
 import { useAiInsight } from "./useAIInsight";
+import { useEffect } from "react";
 
 function AiInsight() {
   const { trades } = useTrades();
   const { aiTradeInsight, isPending } = useAiInsight(trades);
+  useEffect(() => {
+    console.log(trades);
+  }, [trades]);
 
   return (
     <Card>
