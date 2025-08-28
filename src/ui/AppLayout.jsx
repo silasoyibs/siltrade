@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import Sidebar from "./SideBar";
 import { useDarkMode } from "../contexts/DarkModeContext";
+import { useState } from "react";
 
 function AppLayout() {
   const [isExpanded, setIsExpanded] = useState(true);
