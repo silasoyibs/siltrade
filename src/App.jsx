@@ -10,6 +10,7 @@ import AppLayout from "./ui/AppLayout";
 import Analysis from "./pages/Analysis";
 import TradeJournal from "./pages/TradeJournal";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { DarkModeProvider } from "./contexts/DarkModeContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,25 +24,27 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route index path="/" element={<LoginForm />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<SignupForm />} />
-          <Route path="/test" element={<Test />} />
-          <Route
-            element={
-              <ProtectedRoute>
-                <AppLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/analysis" element={<Analysis />} />
-            <Route path="/journal" element={<TradeJournal />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <DarkModeProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route index path="/" element={<LoginForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<SignupForm />} />
+            <Route path="/test" element={<Test />} />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/analysis" element={<Analysis />} />
+              <Route path="/journal" element={<TradeJournal />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </DarkModeProvider>
       <Toaster
         position="top-center"
         gutter={12}

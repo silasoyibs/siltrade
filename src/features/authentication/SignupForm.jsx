@@ -5,11 +5,13 @@ import { useForm } from "react-hook-form";
 import { useSignup } from "./useSignUp";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useState } from "react";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { signup, isPending } = useSignup();
   const { register, handleSubmit, reset, formState } = useForm();
+  const { isDark } = useDarkMode();
   const { errors } = formState;
 
   function onSubmit({ email, password }) {
@@ -22,12 +24,14 @@ function SignupForm() {
   }
 
   return (
-    <div className="bg-primary-50 flex h-screen items-center justify-center px-5 py-80">
+    <div
+      className={`${isDark ? "bg-dark-bg text-white" : "bg-primary-50"}bg-primary-50 flex h-screen items-center justify-center px-5 py-80`}
+    >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-[400px] rounded-3xl bg-white bg-[url(/src/assets/form-bg.png)] bg-cover bg-center bg-no-repeat p-6 shadow"
+        className={`${isDark ? "bg-dark-shade text-white" : "bg-white"} w-full max-w-[400px] rounded-3xl bg-[url(/src/assets/form-bg.png)] bg-cover bg-center bg-no-repeat p-6 shadow`}
       >
-        <Logo dark={true} className="m-auto mb-4 w-[120px]" />
+        <Logo className="m-auto mb-4 w-[120px]" />
         <h1 className="text-center text-3xl font-bold">Sign Up</h1>
         <p className="mb-4 text-center">
           Begin your path to profitable trading

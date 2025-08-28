@@ -21,6 +21,14 @@
   --color-primary-900: #491d95;
   --color-primary-950: #2f1065;
   --color-gray: #6b7280;
+  /* dark mode colors */
+  --color-dark-bg: #111827;
+  --color-dark-shade: #1f2937;
+  --color-dark-primary-shade: #31254f;
+  --color-dark-green-shade: #1c3634;
+  --color-dark-red-shade: #3c262f;
+  --color-dark-blue-shade: #1f2f50;
+  --color-dark-purple-shade: #31254f;
 }
 
 /* General css */

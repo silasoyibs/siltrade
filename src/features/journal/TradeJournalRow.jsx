@@ -30,7 +30,7 @@ function TradeJournalRow({ trade, handleOpenModal }) {
       className="grid grid-cols-10 justify-items-center gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] px-5 py-3"
     >
       <span
-        className={` ${type === "Long" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-17 items-center justify-center rounded-lg px-2 py-1 text-sm font-medium`}
+        className={` ${type === "Long" ? "dark:bg-dark-green-shade bg-green-100 text-green-500" : "dark:bg-dark-red-shade bg-red-100 text-red-500"} flex max-w-17 items-center justify-center rounded-lg px-2 py-1 text-sm font-medium`}
       >
         {type === "Long" ? (
           <HiOutlineArrowNarrowUp />
@@ -40,11 +40,11 @@ function TradeJournalRow({ trade, handleOpenModal }) {
         {type}
       </span>
       <span className="text-gray">{formatJournalTradeDate(date)}</span>
-      <span className="text-sm font-medium">{pair}</span>
+      <span className="text-sm font-medium dark:text-white">{pair}</span>
       <span className="text-gray">{`${entry}/${exit}`}</span>
       <span className="text-gray justify-self-center">{stopLoss}</span>
       <span
-        className={` ${status === "Win" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex items-center justify-self-center rounded-lg px-2 pl-1 text-sm font-medium`}
+        className={` ${status === "Win" ? "dark:bg-dark-green-shade bg-green-100 text-green-500" : "dark:bg-dark-red-shade bg-red-100 text-red-500"} flex items-center justify-self-center rounded-lg px-2 pl-1 text-sm font-medium`}
       >
         {status === "Win" ? <MdCheck /> : <MdOutlineClose />}
         {status}
@@ -52,11 +52,11 @@ function TradeJournalRow({ trade, handleOpenModal }) {
 
       <span className="text-gray justify-self-center">{riskToReward}</span>
       <span
-        className={` ${status === "Win" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} flex max-w-15 items-center rounded-lg px-2 py-1 text-sm font-medium`}
+        className={`${status === "Win" ? "dark:bg-dark-green-shade bg-green-100 text-green-500" : "dark:bg-dark-red-shade bg-red-100 text-red-500"} flex max-w-15 items-center rounded-lg px-2 py-1 text-sm font-medium`}
       >
         {status === "Win" ? `+${result}%` : `-${result}%`}
       </span>
-      <span className="w-full truncate">{notes}</span>
+      <span className="w-full truncate dark:text-white">{notes}</span>
       <div className="flex gap-2">
         <button
           onClick={() => {

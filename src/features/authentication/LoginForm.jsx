@@ -5,24 +5,29 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useSignin } from "./useSignin";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { signin, isPending } = useSignin();
   const { register, handleSubmit, reset } = useForm();
+  const { isDark } = useDarkMode();
 
   function onSubmit({ email, password }) {
     signin({ email, password });
     reset();
   }
+
   return (
-    <div className="bg-primary-50 flex h-screen items-center justify-center px-5 py-80">
+    <div
+      className={`${isDark ? "bg-dark-bg text-white" : "bg-primary-50"} flex h-screen items-center justify-center px-5 py-80`}
+    >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-[400px] rounded-3xl bg-white bg-[url(/src/assets/form-bg.png)] bg-cover bg-center bg-no-repeat p-6 shadow"
+        className={`${isDark ? "bg-dark-shade" : "bg-white"} w-full max-w-[400px] rounded-3xl bg-[url(/src/assets/form-bg.png)] bg-cover bg-center bg-no-repeat p-6 shadow`}
       >
-        <Logo dark={true} className="m-auto mb-4 w-[120px]" />
-        <h1 className="text-center text-3xl font-bold">Log In</h1>
+        <Logo className="m-auto mb-4 w-[120px]" />
+        <h1 className={`text-center text-3xl font-bold`}>Log In</h1>
         <p className="mb-4 text-center">
           continue your path to profitable trading{" "}
         </p>

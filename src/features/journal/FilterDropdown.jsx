@@ -49,11 +49,16 @@ function FilterDropdown({ options, placeholder, icon, paramKey, onChange }) {
       }}
       classNames={{
         control: ({ isFocused }) =>
-          `!w-full !rounded-lg !border-[1.5px] !border-[rgba(0,0,0,0.2)]  ${isFocused ? "!ring-[1.5px] !ring-primary !outline-none !border-hidden" : ""}`,
+          `!w-full !rounded-lg !border-[1.5px] !border-[rgba(0,0,0,0.2)] dark:!bg-dark-shade ${isFocused ? "!ring-[1.5px] !ring-primary !outline-none !border-hidden" : ""}`,
         option: ({ isFocused, isSelected }) =>
           `cursor-pointer transition-all duration-200 rounded-md ${
-            isFocused ? "!bg-primary-100 !text-primary" : "text-black"
-          } ${isSelected ? "!bg-transparent !text-primary" : "text-black"}`,
+            isFocused
+              ? "!bg-primary-100 !text-primary dark:!bg-dark-purple-shade"
+              : "text-black dark:!text-[rgba(255,255,255,0.5)]"
+          } ${isSelected ? "!bg-transparent !text-primary " : "text-black"}`,
+
+        menu: () => `dark:!bg-dark-bg`,
+        singleValue: () => `dark:!text-[rgba(255,255,255,0.5)]`,
       }}
       onChange={(selected) => {
         handleClick(selected);

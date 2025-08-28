@@ -44,7 +44,9 @@ function TradesJournalTable() {
           role="table"
           className="flex min-w-[200px] justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5"
         >
-          <span className="text-lg font-medium">All Trades</span>
+          <span className="text-lg font-medium dark:text-white">
+            All Trades
+          </span>
           <Button className={"!my-0 max-w-35"} onClick={() => setIsOpen(true)}>
             <IoMdAddCircle />
             Add Trade

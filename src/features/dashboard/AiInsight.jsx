@@ -8,23 +8,19 @@ import Button from "../../ui/Button";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { useTrades } from "../journal/useTrades";
 import { useAiInsight } from "./useAIInsight";
-import { useEffect } from "react";
 
 function AiInsight() {
   const { trades } = useTrades();
   const { aiTradeInsight, isPending } = useAiInsight(trades);
-  useEffect(() => {
-    console.log(trades);
-  }, [trades]);
 
   return (
     <Card>
-      <div className="bg-primary-100 flex gap-4 rounded-t-lg p-5">
+      <div className="bg-primary-100 flex gap-4 rounded-t-lg p-5 dark:bg-[#2B3544]">
         <span className="bg-primary flex h-12 w-12 items-center justify-center rounded-full">
           <FaRobot className="text-2xl text-white" />
         </span>
         <div>
-          <p className="text-lg font-medium">AI Insights </p>
+          <p className="text-lg font-medium dark:text-white">AI Insights </p>
           <p className="text-gray text-md">Based on your recent trades</p>
         </div>
       </div>

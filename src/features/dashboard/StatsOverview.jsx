@@ -30,7 +30,7 @@ function StatsOverview() {
         rateMonthlyPercentage={`${monthlyWinrate}%`}
         iconTotal={<IoMdTrendingUp className="text-2xl font-bold" />}
         iconMonthly={<IoMdArrowUp className="text-xl font-semibold" />}
-        Color="bg-green-100  text-green-500"
+        Color="bg-green-100  text-green-500 dark:bg-dark-green-shade"
         isPending={isPending}
       />
       <StatsBox
@@ -39,7 +39,7 @@ function StatsOverview() {
         rateMonthlyPercentage={`${monthlyLossrate}%`}
         iconTotal={<IoMdTrendingDown className="text-2xl font-bold" />}
         iconMonthly={<IoMdArrowUp className="text-xl font-semibold" />}
-        Color="bg-red-100  text-red-500"
+        Color="bg-red-100  text-red-500 dark:bg-dark-red-shade"
         isPending={isPending}
       />
       <StatsBox
@@ -48,7 +48,7 @@ function StatsOverview() {
         rateMonthlyPercentage={monthlyTotalTrades}
         iconTotal={<IoStatsChart className="text-2xl font-bold" />}
         iconMonthly={<IoMdAdd className="text-xl font-semibold" />}
-        Color="bg-blue-100  text-blue-500"
+        Color="bg-blue-100  text-blue-500 dark:bg-dark-blue-shade"
         isPending={isPending}
       />
       <StatsBox
@@ -57,7 +57,7 @@ function StatsOverview() {
         rateMonthlyPercentage={`${monthlyAverageRR}:1`}
         iconTotal={<LuScale className="text-2xl font-bold" />}
         iconMonthly={<IoMdArrowUp className="text-xl font-semibold" />}
-        Color="bg-primary-100  text-primary-500"
+        Color="bg-primary-100  text-primary-500 dark:bg-dark-purple-shade"
         isPending={isPending}
       />
     </div>

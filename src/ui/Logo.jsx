@@ -1,11 +1,13 @@
 import LogoLight from "../assets/siltrade-logo-light.svg";
 import LogoDark from "../assets/siltrade-logo-dark.svg";
 import LogoSymbol from "../assets/siltrade-symbol.png";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
-function Logo({ className, dark, symbol }) {
+function Logo({ className }) {
+  const { isDark } = useDarkMode();
   return (
     <img
-      src={dark ? LogoDark : LogoLight || symbol ? LogoSymbol : LogoLight}
+      src={isDark ? LogoLight : LogoDark}
       alt="Logo-Light"
       className={`${className}`}
     />

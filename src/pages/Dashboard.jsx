@@ -7,7 +7,9 @@ function Dashboard() {
   return (
     <div className="p-5">
       <div className="mb-5">
-        <p className="mb-7 text-lg font-medium"> Key Stats Overview</p>
+        <p className="mb-7 text-lg font-medium dark:text-white">
+          Key Stats Overview
+        </p>
         <StatsOverview />
       </div>
       <div className="grid grid-cols-[1fr_20rem] gap-5">

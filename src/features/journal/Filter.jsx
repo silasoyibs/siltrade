@@ -34,7 +34,9 @@ function Filter() {
   return (
     <div className="mb-7 flex items-center justify-between">
       <div className="flex max-w-[700px] items-center">
-        <span className="mr-4 text-xl">Filters</span>
+        <span className="mr-4 text-xl dark:text-[rgba(225,225,225,0.5)]">
+          Filters
+        </span>
         <div className="flex items-center gap-4">
           <FilterDropdown
             options={tradeStatusOption}
@@ -57,7 +59,7 @@ function Filter() {
         {selectedFilters.date && (
           <FilterTag
             tagText={selectedFilters.date}
-            className="bg-purple-100 text-purple-600"
+            className="dark:bg-dark-purple-shade bg-purple-100 text-purple-600"
             onClick={() => handleRemoveFilterTag("date")}
           />
         )}
@@ -66,7 +68,7 @@ function Filter() {
             tagText={
               selectedFilters.status === "Win" ? "Wins Only" : "Losses Only"
             }
-            className={` ${selectedFilters.status === "Win" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}
+            className={` ${selectedFilters.status === "Win" ? "dark:bg-dark-green-shade bg-green-100 text-green-600" : "dark:bg-dark-red-shade bg-red-100 text-red-600"}`}
             onClick={() => handleRemoveFilterTag("status")}
           />
         )}

@@ -36,7 +36,7 @@ export function Pagination({
     <div className="mt-1">
       {/* Pagination controls */}
       <div className="flex items-center justify-between">
-        <span className="text-sm">
+        <span className="text-sm dark:text-white">
           Showing
           <strong className="px-1">{shownSoFar}</strong>
           of <strong>{totalCount}</strong> trades

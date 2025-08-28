@@ -1,9 +1,9 @@
 function AiInsightBox({ tittle, body, icon, isPending }) {
   return (
-    <div className="mb-5 flex gap-3 rounded-lg bg-[#f7f7f7] p-5">
+    <div className="mb-5 flex gap-3 rounded-lg bg-[#f7f7f7] p-5 dark:bg-[#2B3544]">
       <span>{icon}</span>
       <div>
-        <span className="font-semibold">{tittle}</span>
+        <span className="font-semibold dark:text-white">{tittle}</span>
         {isPending ? (
           <>
             <div className="mt-2 h-4 w-40 animate-pulse rounded bg-gray-300"></div>

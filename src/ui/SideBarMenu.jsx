@@ -5,7 +5,7 @@ import SideBarItem from "./SideBarItem";
 
 function SideBarMenu() {
   return (
-    <nav className="flex flex-col gap-3 border-t-1 border-[rgba(0,0,0,0.1)] px-3 pt-10">
+    <nav className="flex flex-col gap-3 border-t-1 border-[rgba(0,0,0,0.1)] px-3 pt-10 dark:text-white">
       {/* item 1 */}
       <SideBarItem
         text="Dashboard"
