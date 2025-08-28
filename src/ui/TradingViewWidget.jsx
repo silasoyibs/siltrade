@@ -1,8 +1,10 @@
 // TradingViewWidget.jsx
 import React, { useEffect, useRef, memo } from "react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 function TradingViewWidget() {
   const container = useRef();
+  const { isDark } = useDarkMode();
 
   useEffect(() => {
     // Prevent if no ref
@@ -31,9 +33,9 @@ function TradingViewWidget() {
       "save_image": true,
       "style": "1",
       "symbol": "FX:EURUSD",
-      "theme": "light",
+      "theme": "${isDark ? "dark" : "white"}",
       "timezone": "Etc/UTC",
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "${isDark ? "dark" : "white"}",
       "gridColor": "rgba(46, 46, 46, 0.06)",
       "watchlist": [],
       "withdateranges": false,
@@ -43,7 +45,7 @@ function TradingViewWidget() {
     }`;
 
     container.current.appendChild(script);
-  }, []);
+  }, [isDark]);
 
   return (
     <div
