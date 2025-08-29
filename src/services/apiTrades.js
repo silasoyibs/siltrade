@@ -10,8 +10,7 @@ export async function createNewTrade(newTrade) {
   const { data, error } = await supabase
     .from("Trades")
     .insert([{ ...newTrade }]);
-  if (error) throw new Error(error.message, "could not create new trade");
-  console.log("data sucessfully inserted");
+  if (error) throw new Error("could not create new trade");
   return { data };
 }
 

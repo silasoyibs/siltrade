@@ -4,8 +4,10 @@ import { IoIosSearch, IoMdSearch } from "react-icons/io";
 import { IoNotificationsOutline } from "react-icons/io5";
 import iconMoon from "../assets/moon.svg";
 import iconSun from "../assets/sun.svg";
+import { useSignOut } from "../features/authentication/useSignOut";
 
 function NavBar({ onExpand, onToggle, isDark }) {
+  const { signout, isSigningOut } = useSignOut();
   return (
     <div className="dark:bg-dark-shade flex h-16 items-center justify-between border-b-1 border-[rgba(0,0,0,0.1)] bg-white px-3 shadow-sm">
       <button
@@ -41,8 +43,16 @@ function NavBar({ onExpand, onToggle, isDark }) {
           />
           <span className="font-semibold dark:text-white"> Silas Oyibo</span>
         </figure>
-        <button className="dark:bg-dark-bg rounded-md border-[1px] border-[rgba(0,0,0,0.2)] p-2 shadow">
-          <GoSignOut className="text-xl dark:text-white" />
+        <button
+          className="dark:bg-dark-bg rounded-md border-[1px] border-[rgba(0,0,0,0.2)] p-2 shadow"
+          onClick={signout}
+          disabled={isSigningOut}
+        >
+          {isSigningOut ? (
+            "Logging out.."
+          ) : (
+            <GoSignOut className="text-xl dark:text-white" />
+          )}
         </button>
       </div>
     </div>

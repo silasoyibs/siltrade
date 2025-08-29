@@ -20,7 +20,7 @@ export async function signin({ email, password }) {
 }
 export async function signout() {
   const { error } = await supabase.auth.signOut();
-  throw new Error(error.message);
+  if (error) throw new Error(error.message);
 }
 export async function getCurrentUser() {
   const { data: session } = await supabase.auth.getSession();
