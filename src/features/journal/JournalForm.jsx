@@ -53,7 +53,6 @@ function JournalForm({ handleCloseModal }) {
 
   function onSubmit(data) {
     if (isEditingSession) {
-      console.log(editTradeId, data);
       editTrade(
         {
           id: editTradeId,

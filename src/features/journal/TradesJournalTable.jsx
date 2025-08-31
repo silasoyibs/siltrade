@@ -6,7 +6,7 @@ import { IoMdAddCircle } from "react-icons/io";
 import { usePaginatedTrades } from "./useTrades";
 import Modal from "../../ui/Modal";
 import JournalForm from "./JournalForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TableHeader from "./TableHeader";
 import SkeletonLoader from "../../ui/skeletonLoader";
 import Pagination from "./Pagination";
@@ -32,10 +32,6 @@ function TradesJournalTable() {
   function handleOpenModal() {
     setIsOpen(true);
   }
-
-  useEffect(() => {
-    console.log(totalCount, trades, currentPage, totalNumTrades);
-  }, [totalCount, trades, currentPage, totalNumTrades]);
 
   return (
     <>
