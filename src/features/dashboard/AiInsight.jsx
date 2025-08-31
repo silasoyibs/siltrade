@@ -14,7 +14,7 @@ function AiInsight() {
   const { aiTradeInsight, isPending } = useAiInsight(trades);
 
   return (
-    <Card>
+    <Card className="flex flex-col">
       <div className="bg-primary-100 flex gap-4 rounded-t-lg p-5 dark:bg-[#2B3544]">
         <span className="bg-primary flex h-12 w-12 items-center justify-center rounded-full">
           <FaRobot className="text-2xl text-white" />
@@ -24,7 +24,7 @@ function AiInsight() {
           <p className="text-gray text-md">Based on your recent trades</p>
         </div>
       </div>
-      <div className="p-5 pb-0">
+      <div className="flex flex-1 flex-col p-5 pb-0">
         <AiInsightBox
           icon={<FaLightbulb className="text-primary mt-1 text-xl" />}
           tittle="Pattern Recognition"
@@ -43,7 +43,7 @@ function AiInsight() {
           isPending={isPending}
           body={aiTradeInsight?.riskManagement}
         />
-        <Button>
+        <Button className={`!mt-auto`}>
           <FaWandMagicSparkles className="text-white" />
           Get Detailed AI Analysis
         </Button>
