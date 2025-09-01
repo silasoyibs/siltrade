@@ -53,8 +53,8 @@ function StatsOverview() {
       />
       <StatsBox
         rateName="Average R:R"
-        rateTotalPercentage={`${overallAverageRR}:1`}
-        rateMonthlyPercentage={`${monthlyAverageRR}:1`}
+        rateTotalPercentage={overallAverageRR}
+        rateMonthlyPercentage={monthlyAverageRR}
         iconTotal={<LuScale className="text-2xl font-bold" />}
         iconMonthly={<IoMdArrowUp className="text-xl font-semibold" />}
         Color="bg-primary-100  text-primary-500 dark:bg-dark-purple-shade"

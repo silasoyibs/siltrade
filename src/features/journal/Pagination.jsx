@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Button from "../../ui/Button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { ITEMS_PER_PAGE } from "../../utils/constants";
@@ -13,25 +12,14 @@ export function Pagination({
 
   // Handlers update the query param `page`
   function handleNextPage() {
-    // setCount((currCount) => currCount + count);
     setCurrentPage((c) => c + 1);
   }
 
   function handlePrevPage() {
     setCurrentPage((c) => c - 1);
-    // if (currentPage > 1) {
-    //   setSearchParams((prev) => {
-    //     const params = new URLSearchParams(prev);
-    //     params.set("page", currentPage - 1);
-    //     return params;
-    //   });
-    // }
   }
 
-  // // How many trades are currently shown
-  // const shownCount = Math.min(currentPage * itemsPerPage, totalCount);
-  // const startCount = (currentPage - 1) * itemsPerPage + 1;
-
+  // How many trades are currently shown
   return (
     <div className="mt-1">
       {/* Pagination controls */}

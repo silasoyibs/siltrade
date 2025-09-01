@@ -11,6 +11,7 @@ import TableHeader from "./TableHeader";
 import SkeletonLoader from "../../ui/skeletonLoader";
 import Pagination from "./Pagination";
 import { ITEMS_PER_PAGE } from "../../utils/constants";
+import EmptyJournalTrade from "./EmptyJournalTrade";
 
 function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
@@ -23,16 +24,13 @@ function TradesJournalTable() {
     ITEMS_PER_PAGE,
     { status: filterTradeValue, dateRange: dateFilterValue },
   );
-
   const totalNumTrades = trades?.length;
-
   function handleCloseModal() {
     setIsOpen(false);
   }
   function handleOpenModal() {
     setIsOpen(true);
   }
-
   return (
     <>
       <Card>
@@ -61,7 +59,11 @@ function TradesJournalTable() {
           <div>ACTION</div>
         </TableHeader>
         <div>
+          {/* Loading State */}
           {isPending && <SkeletonLoader />}
+          {/* Empty State */}
+          {!isPending && !trades?.length && <EmptyJournalTrade />}
+          {/* All Trade Full Data */}
           {trades?.map((trade) => (
             <TradeJournalRow
               trade={trade}

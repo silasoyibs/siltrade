@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginForm from "./features/authentication/LoginForm";
 import SignupForm from "./features/authentication/SignupForm";
-import Test from "./pages/Test";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard";
@@ -11,6 +10,8 @@ import Analysis from "./pages/Analysis";
 import TradeJournal from "./pages/TradeJournal";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
+import AIInsight from "./pages/AIInsight";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,6 @@ function App() {
             <Route index path="/" element={<LoginForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<SignupForm />} />
-            <Route path="/test" element={<Test />} />
             <Route
               element={
                 <ProtectedRoute>
@@ -41,6 +41,8 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/analysis" element={<Analysis />} />
               <Route path="/journal" element={<TradeJournal />} />
+              <Route path="/insights" element={<AIInsight />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
           </Routes>
         </BrowserRouter>

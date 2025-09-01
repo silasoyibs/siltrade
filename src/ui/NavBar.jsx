@@ -1,6 +1,6 @@
 import { CgMenuLeftAlt } from "react-icons/cg";
 import { GoSignOut } from "react-icons/go";
-import { IoIosSearch, IoMdSearch } from "react-icons/io";
+import { IoMdSearch } from "react-icons/io";
 import { IoNotificationsOutline } from "react-icons/io5";
 import iconMoon from "../assets/moon.svg";
 import iconSun from "../assets/sun.svg";

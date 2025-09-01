@@ -29,6 +29,7 @@
   --color-dark-red-shade: #3c262f;
   --color-dark-blue-shade: #1f2f50;
   --color-dark-purple-shade: #31254f;
+  --color-dark-mode: rgba(255, 255, 255, 0.5);
 }
 
 /* General css */

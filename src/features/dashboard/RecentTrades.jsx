@@ -3,6 +3,7 @@ import Card from "../../ui/Card";
 import RecentTradeList from "./RecentTradeList";
 import SkeletonLoader from "../../ui/skeletonLoader";
 import { useRecentTrades } from "./useRecentTrades";
+import EmptyStateRecentTrade from "./EmptyStateRecentTrade";
 
 function RecentTrades() {
   const { recentTrades, isPending } = useRecentTrades();
@@ -25,7 +26,11 @@ function RecentTrades() {
         <span>R:R</span>
         <span>RESULT</span>
       </div>
+      {/* Trade Loading State */}
       {isPending && <SkeletonLoader />}
+      {/* Trade Empty State */}
+      {!isPending && recentTrades?.length === 0 && <EmptyStateRecentTrade />}
+      {/* Trade Full Data */}
       {recentTrades?.map((trade) => (
         <RecentTradeList key={trade.id} trade={trade} />
       ))}
