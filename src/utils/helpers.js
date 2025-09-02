@@ -186,7 +186,7 @@ export function calculateAverageRR(trades) {
   };
 
   // ---- Overall Average R:R ----
-  const overallAverageRR = `${getAverageRR(trades)}:1`;
+  const overallAverageRR = `${Math.round(getAverageRR(trades))}:1`;
 
   // ---- Monthly Average R:R ----
   const now = new Date();
@@ -200,8 +200,7 @@ export function calculateAverageRR(trades) {
       tradeDate.getFullYear() === currentYear
     );
   });
-
-  const monthlyAverageRR = `${getAverageRR(monthlyTrades)}:1`;
+  const monthlyAverageRR = `${Math.round(getAverageRR(monthlyTrades))}:1`;
 
   return { overallAverageRR, monthlyAverageRR };
 }

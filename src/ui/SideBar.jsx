@@ -9,8 +9,6 @@ function SideBar({ isExpanded }) {
     >
       <div className="flex h-16 items-center justify-between pr-4">
         <Logo
-          dark={isExpanded ? true : false}
-          symbol={isExpanded ? false : true}
           isExpanded={isExpanded}
           className={`${isExpanded ? "w-[170px]" : "w-32"} overflow-hidden px-3 transition-all`}
         />
