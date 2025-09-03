@@ -9,7 +9,7 @@ function RecentTrades() {
   const { recentTrades, isPending } = useRecentTrades();
 
   return (
-    <Card className={"h-min"}>
+    <Card className={"w-full"}>
       <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">
         <span className="text-lg font-medium dark:text-white">
           Recent Trades
@@ -18,7 +18,7 @@ function RecentTrades() {
           View All
         </NavLink>
       </div>
-      <div className="text-gray grid grid-cols-6 justify-items-center gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] bg-[#f7f7f7] px-5 py-3 text-sm dark:bg-[#2B3544]">
+      <div className="text-gray grid grid-cols-6 justify-items-center gap-x-1 overflow-x-auto border-b-1 border-[rgba(0,0,0,0.1)] bg-[#f7f7f7] px-5 py-3 text-sm dark:bg-[#2B3544]">
         <span>TYPE</span>
         <span>DATE</span>
         <span>PAIR</span>

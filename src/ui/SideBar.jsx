@@ -1,6 +1,7 @@
 import Logo from "./Logo";
 import SideBarMenu from "./SideBarMenu";
 import { SiderBarContext } from "../contexts/SideBarContext";
+import LogoMini from "./LogoMini";
 
 function SideBar({ isExpanded }) {
   return (
@@ -8,10 +9,11 @@ function SideBar({ isExpanded }) {
       className={`${isExpanded ? "w-60" : "w-20"} dark:bg-dark-shade overflow-hidden border-r-1 border-[rgba(0,0,0,0.1)] bg-white shadow-sm transition-all`}
     >
       <div className="flex h-16 items-center justify-between pr-4">
-        <Logo
-          isExpanded={isExpanded}
-          className={`${isExpanded ? "w-[170px]" : "w-32"} overflow-hidden px-3 transition-all`}
-        />
+        {isExpanded ? (
+          <Logo className="w-[170px] overflow-hidden px-3 transition-all" />
+        ) : (
+          <LogoMini className="ml-3 w-[50px]" />
+        )}
       </div>
       <SiderBarContext.Provider value={isExpanded}>
         <SideBarMenu />

@@ -6,6 +6,7 @@ import iconMoon from "../assets/moon.svg";
 import iconSun from "../assets/sun.svg";
 import { useSignOut } from "../features/authentication/useSignOut";
 import { useCurrentUser } from "../features/authentication/useCurrentUser";
+import SpinnerMini from "./SpinnerMini";
 
 function NavBar({ onExpand, onToggle, isDark }) {
   const { signout, isSigningOut } = useSignOut();
@@ -20,7 +21,7 @@ function NavBar({ onExpand, onToggle, isDark }) {
         <CgMenuLeftAlt className="text-lg font-extrabold dark:text-white" />
       </button>
       {/* search bar */}
-      <div className="relative">
+      <div className="relative hidden lg:block">
         <IoMdSearch className="absolute top-[11px] left-2 text-xl" />
         <input
           type="text"
@@ -52,7 +53,7 @@ function NavBar({ onExpand, onToggle, isDark }) {
           disabled={isSigningOut}
         >
           {isSigningOut ? (
-            "Logging out.."
+            <SpinnerMini className={`!border-primary dark:!border-white`} />
           ) : (
             <GoSignOut className="text-xl dark:text-white" />
           )}

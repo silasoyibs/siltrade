@@ -12,7 +12,7 @@ function Dashboard() {
         </p>
         <StatsOverview />
       </div>
-      <div className="grid grid-cols-[1fr_20rem] gap-5">
+      <div className="grid gap-5 lg:grid-cols-[1fr_20rem]">
         <div>
           <RecentTrades />
           <PerformanceTrends />

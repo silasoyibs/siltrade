@@ -30,6 +30,9 @@
   --color-dark-blue-shade: #1f2f50;
   --color-dark-purple-shade: #31254f;
   --color-dark-mode: rgba(255, 255, 255, 0.5);
+  /* breakpoint */
+  --breakpoint-md: 40rem;
+  --breakpoint-lg: 70rem;
 }
 
 /* General css */

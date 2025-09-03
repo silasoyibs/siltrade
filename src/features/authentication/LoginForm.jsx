@@ -6,12 +6,14 @@ import { useForm } from "react-hook-form";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useSignin } from "./useSignin";
 import { useDarkMode } from "../../contexts/DarkModeContext";
+import { useGoogleAuth } from "./useGoogleAuth";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const { signin, isPending } = useSignin();
   const { register, handleSubmit, reset } = useForm();
   const { isDark } = useDarkMode();
+  const { signin, isPending } = useSignin();
+  const { googleAuth } = useGoogleAuth();
 
   function onSubmit({ email, password }) {
     signin({ email, password });
@@ -98,7 +100,10 @@ function LoginForm() {
             <span className="flex-none">Or continue with</span>
             <div className="bg-primary-300 h-0.5 w-full"></div>
           </div>
-          <button className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2">
+          <button
+            onClick={googleAuth}
+            className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2"
+          >
             <img
               src="src/assets/goggle.svg"
               alt="goggle-logo"
