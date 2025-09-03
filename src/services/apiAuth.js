@@ -8,9 +8,9 @@ export async function signup({ email, password }) {
 export async function googleAuth() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
-    // options: {
-    //   redirectTo: "http://localhost:5173/dashboard",
-    // },
+    options: {
+      redirectTo: "http://localhost:5173/dashboard",
+    },
   });
   if (error) throw new Error(error.message);
   return data;
@@ -34,5 +34,3 @@ export async function getCurrentUser() {
   if (error) throw new Error(error.message);
   return data.user;
 }
-// https://zrbqksmddaoilqirvzhr.supabase.co/auth/v1/callback
-// 905328411943-82gch91u6t09appalg037tb65ogmdd8a.apps.googleusercontent.com
