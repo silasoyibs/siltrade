@@ -7,18 +7,35 @@ import {
   AreaChart,
   Area,
 } from "recharts";
+import { useWeeklyWinRate } from "./useWinRatePerformanceChart";
+import { useEffect } from "react";
 
-const data = [
-  { name: "Mon", pv: 60 },
-  { name: "Tue", pv: 55 },
-  { name: "Wed", pv: 58 },
-  { name: "Thur", pv: 63 },
-  { name: "Fri", pv: 66 },
-  { name: "Sat", pv: 70 },
-  { name: "Sun", pv: 72 },
-];
+let data = [];
+// const data = [
+//   { name: "Jan", pv: 62 },
+//   { name: "Feb", pv: 58 },
+//   { name: "Mar", pv: 65 },
+//   { name: "Apr", pv: 70 },
+//   { name: "May", pv: 68 },
+//   { name: "Jun", pv: 72 },
+//   { name: "Jul", pv: 66 },
+//   { name: "Aug", pv: 75 },
+//   { name: "Sep", pv: 71 },
+//   { name: "Oct", pv: 74 },
+//   { name: "Nov", pv: 69 },
+//   { name: "Dec", pv: 73 },
+// ];
 
 function PerformanceChart() {
+  const { weeklyWinrate } = useWeeklyWinRate();
+  data = weeklyWinrate?.map((data) => ({
+    name: data.day,
+    winrate: data.wins > 0 ? (data.wins / data.totaltrades) * 100 : 0,
+  }));
+
+  useEffect(() => {
+    console.log(weeklyWinrate, data);
+  }, [weeklyWinrate]);
   return (
     <div style={{ width: "100%", height: 250 }}>
       <ResponsiveContainer>
@@ -34,7 +51,7 @@ function PerformanceChart() {
           </defs>
           <XAxis
             dataKey="name"
-            tick={{ fontSize: 12, fill: "#6B7280" }} // Tailwind: text-gray-500
+            tick={{ fontSize: 12, fill: "#6B7280" }}
             axisLine={false}
             tickLine={false}
           />
@@ -44,15 +61,11 @@ function PerformanceChart() {
             tickLine={false}
           />
 
-          <CartesianGrid
-            strokearray="4 4"
-            stroke="#E5E7EB" // Tailwind: gray-200
-            vertical={false}
-          />
+          <CartesianGrid strokearray="4 4" stroke="#E5E7EB" vertical={false} />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="pv"
+            dataKey="winrate"
             stroke="#7c3aed"
             strokeWidth={2}
             fillOpacity={1}

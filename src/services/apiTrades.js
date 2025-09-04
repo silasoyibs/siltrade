@@ -88,3 +88,9 @@ export async function getPaginatedTrades(page, limit, filters) {
 
   return { data, totalCount: count };
 }
+
+export async function getWeeklyWinRate() {
+  const { data, error } = await supabase.rpc("get_weekly_winrate");
+  if (error) throw new Error(error.message);
+  return data;
+}
