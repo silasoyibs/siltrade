@@ -2,6 +2,7 @@ import { FaBook, FaChartPie, FaRobot } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { RiDashboard3Fill } from "react-icons/ri";
 import SideBarItem from "./SideBarItem";
+import Profile from "./Profile";
 
 function SideBarMenu() {
   return (
@@ -36,6 +37,7 @@ function SideBarMenu() {
         link="settings"
         icon={<IoMdSettings className="text-xl" />}
       />
+      <Profile type="sidebar" />
     </nav>
   );
 }

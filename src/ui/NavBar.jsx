@@ -5,12 +5,11 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import iconMoon from "../assets/moon.svg";
 import iconSun from "../assets/sun.svg";
 import { useSignOut } from "../features/authentication/useSignOut";
-import { useCurrentUser } from "../features/authentication/useCurrentUser";
 import SpinnerMini from "./SpinnerMini";
+import Profile from "./Profile";
 
 function NavBar({ onExpand, onToggle, isDark }) {
   const { signout, isSigningOut } = useSignOut();
-  const { user } = useCurrentUser();
 
   return (
     <div className="dark:bg-dark-shade flex h-16 items-center justify-between border-b-1 border-[rgba(0,0,0,0.1)] bg-white px-3 shadow-sm">
@@ -40,13 +39,7 @@ function NavBar({ onExpand, onToggle, isDark }) {
             1
           </span>
         </div>
-        <figure className="flex items-center gap-2">
-          <img
-            className="h-10 w-10 rounded-full"
-            src="src/assets/team-bg-img.jpg"
-          />
-          <span className="font-semibold dark:text-white">{user.email}</span>
-        </figure>
+        <Profile className={`hidden md:!flex`} />
         <button
           className="dark:bg-dark-bg rounded-md border-[1px] border-[rgba(0,0,0,0.2)] p-2 shadow"
           onClick={signout}

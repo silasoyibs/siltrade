@@ -204,3 +204,9 @@ export function calculateAverageRR(trades) {
 
   return { overallAverageRR, monthlyAverageRR };
 }
+
+// capitalise first letter
+export function capitalLiseFirstLetter(text) {
+  if (!text) return;
+  return text.charAt(0).toUpperCase();
+}

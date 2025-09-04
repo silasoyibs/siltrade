@@ -7,7 +7,6 @@ export function useWeeklyWinRate() {
     queryKey: ["chartWeeklyWinrate"],
     queryFn: getWeeklyWinRate,
   });
-
   return { weeklyWinrate, isPending };
 }
 
