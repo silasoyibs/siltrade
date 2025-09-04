@@ -46,33 +46,40 @@ function TradesJournalTable() {
             Add Trade
           </Button>
         </div>
-        <TableHeader>
-          <div>TYPE</div>
-          <div>DATE</div>
-          <div>PAIR</div>
-          <div>ENTRY/EXIT</div>
-          <div>STOPLOSS</div>
-          <div>STATUS</div>
-          <div> R:R</div>
-          <div>RESULT</div>
-          <div>NOTES</div>
-          <div>ACTION</div>
-        </TableHeader>
-        <div>
-          {/* Loading State */}
-          {isPending && <SkeletonLoader />}
-          {/* Empty State */}
-          {!isPending && !trades?.length && <EmptyJournalTrade />}
-          {/* All Trade Full Data */}
-          {trades?.map((trade) => (
-            <TradeJournalRow
-              trade={trade}
-              key={trade.id}
-              handleOpenModal={handleOpenModal}
-            />
-          ))}
+        <div className="custom-scrollbar overflow-x-auto">
+          {/* 900px */}
+          <div className="min-w-[1200px]">
+            <TableHeader>
+              <div>TYPE</div>
+              <div>DATE</div>
+              <div>PAIR</div>
+              <div>ENTRY/EXIT</div>
+              <div>STOPLOSS</div>
+              <div>STATUS</div>
+              <div> R:R</div>
+              <div>RESULT</div>
+              <div>NOTES</div>
+              <div>ACTION</div>
+            </TableHeader>
+
+            <div>
+              {/* Loading State */}
+              {isPending && <SkeletonLoader />}
+              {/* Empty State */}
+              {!isPending && !trades?.length && <EmptyJournalTrade />}
+              {/* All Trade Full Data */}
+              {trades?.map((trade) => (
+                <TradeJournalRow
+                  trade={trade}
+                  key={trade.id}
+                  handleOpenModal={handleOpenModal}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </Card>
+
       <Pagination
         totalNumTrades={totalNumTrades}
         totalCount={totalCount}

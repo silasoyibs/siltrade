@@ -8,7 +8,6 @@ import {
   Area,
 } from "recharts";
 import { useWeeklyWinRate } from "./useWinRatePerformanceChart";
-import { useEffect } from "react";
 
 let data = [];
 // const data = [
@@ -33,9 +32,6 @@ function PerformanceChart() {
     winrate: data.wins > 0 ? (data.wins / data.totaltrades) * 100 : 0,
   }));
 
-  useEffect(() => {
-    console.log(weeklyWinrate, data);
-  }, [weeklyWinrate]);
   return (
     <div style={{ width: "100%", height: 250 }}>
       <ResponsiveContainer>

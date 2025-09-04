@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
 import AIInsight from "./pages/AIInsight";
 import Settings from "./pages/Settings";
+import Test from "./pages/Test";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,7 @@ function App() {
               <Route path="/journal" element={<TradeJournal />} />
               <Route path="/insights" element={<AIInsight />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/test" element={<Test />} />
             </Route>
           </Routes>
         </BrowserRouter>

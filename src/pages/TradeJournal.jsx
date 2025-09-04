@@ -11,7 +11,9 @@ function TradeJournal() {
         </p>
         <JournalContextProvider>
           <Filter />
-          <TradesJournalTable />
+          <div className="overflow-x-auto">
+            <TradesJournalTable />
+          </div>
         </JournalContextProvider>
       </div>
     </div>

@@ -7,9 +7,8 @@ import EmptyStateRecentTrade from "./EmptyStateRecentTrade";
 
 function RecentTrades() {
   const { recentTrades, isPending } = useRecentTrades();
-
   return (
-    <Card className={"w-full"}>
+    <Card>
       <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">
         <span className="text-lg font-medium dark:text-white">
           Recent Trades
@@ -18,22 +17,28 @@ function RecentTrades() {
           View All
         </NavLink>
       </div>
-      <div className="text-gray grid grid-cols-6 justify-items-center gap-x-1 overflow-x-auto border-b-1 border-[rgba(0,0,0,0.1)] bg-[#f7f7f7] px-5 py-3 text-sm dark:bg-[#2B3544]">
-        <span>TYPE</span>
-        <span>DATE</span>
-        <span>PAIR</span>
-        <span>ENTRY/EXIT</span>
-        <span>R:R</span>
-        <span>RESULT</span>
+      <div className="custom-scrollbar mt-5 overflow-x-auto">
+        <div className="min-w-[800px]">
+          <div className="text-gray grid grid-cols-6 justify-items-center gap-x-1 border-b-1 border-[rgba(0,0,0,0.1)] bg-[#f7f7f7] px-5 py-3 text-sm dark:bg-[#2B3544]">
+            <span>TYPE</span>
+            <span>DATE</span>
+            <span>PAIR</span>
+            <span>ENTRY/EXIT</span>
+            <span>R:R</span>
+            <span>RESULT</span>
+          </div>
+          {/* Trade Loading State */}
+          {isPending && <SkeletonLoader />}
+          {/* Trade Empty State */}
+          {!isPending && recentTrades?.length === 0 && (
+            <EmptyStateRecentTrade />
+          )}
+          {/* Trade Full Data */}
+          {recentTrades?.map((trade) => (
+            <RecentTradeList key={trade.id} trade={trade} />
+          ))}
+        </div>
       </div>
-      {/* Trade Loading State */}
-      {isPending && <SkeletonLoader />}
-      {/* Trade Empty State */}
-      {!isPending && recentTrades?.length === 0 && <EmptyStateRecentTrade />}
-      {/* Trade Full Data */}
-      {recentTrades?.map((trade) => (
-        <RecentTradeList key={trade.id} trade={trade} />
-      ))}
     </Card>
   );
 }

@@ -7,7 +7,7 @@ function PerformanceTrends() {
   const { trades, isPending } = useTrades();
 
   return (
-    <Card className={`mt-5`}>
+    <Card className={`mt-5 overflow-hidden`}>
       <div className="flex justify-between border-b-1 border-[rgba(0,0,0,0.1)] p-5">
         <span className="text-lg font-medium dark:text-white">
           Performance Trends
