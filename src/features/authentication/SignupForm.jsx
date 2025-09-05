@@ -6,12 +6,14 @@ import { useSignup } from "./useSignUp";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useState } from "react";
 import { useDarkMode } from "../../contexts/DarkModeContext";
+import { useGoogleAuth } from "./useGoogleAuth";
 
 function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { signup, isPending } = useSignup();
   const { register, handleSubmit, reset, formState } = useForm();
   const { isDark } = useDarkMode();
+  const { googleAuth } = useGoogleAuth();
   const { errors } = formState;
 
   function onSubmit({ email, password }) {
@@ -110,7 +112,10 @@ function SignupForm() {
             <span className="flex-none">Or Sign up with</span>
             <div className="bg-primary-300 h-0.5 w-full"></div>
           </div>
-          <button className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2">
+          <button
+            onClick={googleAuth}
+            className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2"
+          >
             <img
               src="src/assets/goggle.svg"
               alt="goggle-logo"

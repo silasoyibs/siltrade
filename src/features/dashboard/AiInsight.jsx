@@ -10,15 +10,11 @@ import { useTrades } from "../journal/useTrades";
 import { useAiInsight } from "./useAIInsight";
 import EmptyStateAiInsight from "./EmptyStateAiInsight";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function AiInsight() {
   const { trades } = useTrades();
   const { aiTradeInsight, isPending } = useAiInsight(trades);
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(trades);
-  }, [trades]);
 
   return (
     <Card className="flex flex-col">
