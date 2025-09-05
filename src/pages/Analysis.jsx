@@ -2,7 +2,7 @@ import TradingViewWidget from "../ui/TradingViewWidget";
 
 function Analysis() {
   return (
-    <div className="h-full">
+    <div className="dark:bg-dark-bg h-full">
       <TradingViewWidget />
     </div>
   );

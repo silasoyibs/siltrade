@@ -16,14 +16,14 @@ function NavBar({ onExpand, onToggle, isDark, onShow }) {
       {/* Mobile Nav Button */}
       <button
         onClick={onShow}
-        className="dark:bg-dark-bg rounded-lg border-[1px] border-[rgba(0,0,0,0.2)] bg-gray-100 p-2 lg:hidden"
+        className="dark:bg-dark-bg rounded-lg border-[1px] border-[rgba(0,0,0,0.2)] bg-gray-100 p-2 md:hidden"
       >
         <CgMenuLeftAlt className="text-lg font-extrabold dark:text-white" />
       </button>
       {/* Desktop Nav Button */}
       <button
         onClick={onExpand}
-        className="dark:bg-dark-bg hidden rounded-lg border-[1px] border-[rgba(0,0,0,0.2)] bg-gray-100 p-2 lg:block"
+        className="dark:bg-dark-bg hidden rounded-lg border-[1px] border-[rgba(0,0,0,0.2)] bg-gray-100 p-2 md:block"
       >
         <CgMenuLeftAlt className="text-lg font-extrabold dark:text-white" />
       </button>

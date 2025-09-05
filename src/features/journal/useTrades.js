@@ -7,11 +7,12 @@ export function usePaginatedTrades(page, limit, filters) {
     queryKey: ["trades", page, limit, filters],
     queryFn: () => getPaginatedTrades(page, limit, filters),
     keepPreviousData: true,
+    placeholderData: (prev) => prev,
   });
 
   return {
     trades: data?.data ?? [],
-    totalCount: data?.totalCount ?? 0,
+    totalCount: data?.totalCount,
     isPending,
   };
 }

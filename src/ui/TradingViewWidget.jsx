@@ -49,7 +49,7 @@ function TradingViewWidget() {
 
   return (
     <div
-      className="tradingview-widget-container"
+      className="tradingview-widget-container dark:bg-dark-bg"
       ref={container}
       style={{ height: "100%", width: "100%" }}
     >
