@@ -8,14 +8,22 @@ import { useSignOut } from "../features/authentication/useSignOut";
 import SpinnerMini from "./SpinnerMini";
 import Profile from "./Profile";
 
-function NavBar({ onExpand, onToggle, isDark }) {
+function NavBar({ onExpand, onToggle, isDark, onShow }) {
   const { signout, isSigningOut } = useSignOut();
 
   return (
     <div className="dark:bg-dark-shade flex h-16 items-center justify-between border-b-1 border-[rgba(0,0,0,0.1)] bg-white px-3 shadow-sm">
+      {/* Mobile Nav Button */}
+      <button
+        onClick={onShow}
+        className="dark:bg-dark-bg rounded-lg border-[1px] border-[rgba(0,0,0,0.2)] bg-gray-100 p-2 lg:hidden"
+      >
+        <CgMenuLeftAlt className="text-lg font-extrabold dark:text-white" />
+      </button>
+      {/* Desktop Nav Button */}
       <button
         onClick={onExpand}
-        className="dark:bg-dark-bg rounded-lg border-[1px] border-[rgba(0,0,0,0.2)] bg-gray-100 p-2"
+        className="dark:bg-dark-bg hidden rounded-lg border-[1px] border-[rgba(0,0,0,0.2)] bg-gray-100 p-2 lg:block"
       >
         <CgMenuLeftAlt className="text-lg font-extrabold dark:text-white" />
       </button>
@@ -29,7 +37,7 @@ function NavBar({ onExpand, onToggle, isDark }) {
         />
       </div>
 
-      <div className="flex items-center gap-5 pr-10">
+      <div className="flex items-center gap-5 md:pr-10">
         <button onClick={onToggle}>
           <img src={isDark ? iconSun : iconMoon} className="h-8" />
         </button>
