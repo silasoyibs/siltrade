@@ -7,7 +7,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import { useSignin } from "./useSignin";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import { useGoogleAuth } from "./useGoogleAuth";
-import { googleLogo } from "../../assets/goggle.svg";
+import googleLogo from "../../assets/goggle.svg";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
