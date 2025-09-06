@@ -9,7 +9,7 @@ export async function googleAuth() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:5173/dashboard",
+      redirectTo: "https://siltrade.vercel.app/dashboard",
     },
   });
   if (error) throw new Error(error.message);
