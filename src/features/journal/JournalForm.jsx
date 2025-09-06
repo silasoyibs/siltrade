@@ -5,13 +5,13 @@ import Button from "../../ui/Button";
 import { BsCurrencyDollar } from "react-icons/bs";
 import FormDatepicker from "../../ui/FormDatePicker";
 import Select from "react-select";
-import InputBox from "../../ui/InputBox.Jsx";
 import { calculateResult, calculateRiskReward } from "../../utils/helpers";
 import { useEffect } from "react";
 // import Loader from "../../ui/Loader";
 import { useCreateTrade } from "./useCreateTrade";
 import { useJournal } from "../../contexts/JournalContext";
 import { useEditTrade } from "./useEditTrade";
+import InputBox from "../../ui/InputBox";
 
 function JournalForm({ handleCloseModal }) {
   // const [isLoading, setIsLoading] = useState(false);
