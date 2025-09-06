@@ -8,10 +8,11 @@ import Modal from "../../ui/Modal";
 import JournalForm from "./JournalForm";
 import { useState } from "react";
 import TableHeader from "./TableHeader";
-import SkeletonLoader from "../../ui/skeletonLoader";
+
 import Pagination from "./Pagination";
 import { ITEMS_PER_PAGE } from "../../utils/constants";
 import EmptyJournalTrade from "./EmptyJournalTrade";
+import SkeletonLoader from "../../ui/SkeletonLoader";
 
 function TradesJournalTable() {
   const [isOpen, setIsOpen] = useState();
