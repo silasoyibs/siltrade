@@ -7,7 +7,7 @@ import { TbGraphFilled } from "react-icons/tb";
 import Button from "../../ui/Button";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { useTrades } from "../journal/useTrades";
-import { useAiInsight } from "./useAIInsight";
+import { useAiInsight } from "./useAiInsight.js";
 import EmptyStateAiInsight from "./EmptyStateAiInsight";
 import { useNavigate } from "react-router-dom";
 
