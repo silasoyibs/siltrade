@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Card from "../../ui/Card";
 import RecentTradeList from "./RecentTradeList";
-import SkeletonLoader from "../../ui/skeletonLoader";
+import SkeletonLoader from "../../ui/SkeletonLoader";
 import { useRecentTrades } from "./useRecentTrades";
 import EmptyStateRecentTrade from "./EmptyStateRecentTrade";
 
