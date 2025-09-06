@@ -7,6 +7,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import { useState } from "react";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import { useGoogleAuth } from "./useGoogleAuth";
+import { googleLogo } from "../../assets/goggle.svg";
 
 function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -116,11 +117,7 @@ function SignupForm() {
             onClick={googleAuth}
             className="border-primary-300 w-100% mb-4 flex w-full items-center justify-center gap-2 rounded-xl border-1 py-2"
           >
-            <img
-              src="src/assets/goggle.svg"
-              alt="goggle-logo"
-              className="w-5"
-            />
+            <img src={googleLogo} alt="goggle-logo" className="w-5" />
             Sign up with Goggle
           </button>
         </div>
