@@ -2,7 +2,7 @@ import { FaArrowRightLong, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import Logo from "../../ui/Logo";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useSignup } from "./useSignUp";
+import { useSignup } from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useState } from "react";
 import { useDarkMode } from "../../contexts/DarkModeContext";
