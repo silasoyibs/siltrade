@@ -2,7 +2,10 @@ import { FaCalendarDay } from "react-icons/fa";
 import FilterTag from "../../ui/FilterTag";
 import FilterDropdown from "./FilterDropdown";
 import { BsFillFilterCircleFill } from "react-icons/bs";
+import { FiDownload } from "react-icons/fi";
 import { useState } from "react";
+import { getTrades } from "../../services/apiTrades";
+import { downloadTradesCsv } from "../../utils/exportCsv";
 
 function Filter() {
   const tradeStatusOption = [
@@ -19,6 +22,7 @@ function Filter() {
     status: null,
     date: null,
   });
+  const [exportingStatus, setExportingStatus] = useState(null);
 
   function handleFilterValue(filtervaluetype, filtervalue) {
     setSelectedFilters((prevfiltervalue) => ({
@@ -29,6 +33,19 @@ function Filter() {
 
   function handleRemoveFilterTag(filtertype) {
     setSelectedFilters((prevVal) => ({ ...prevVal, [filtertype]: null }));
+  }
+
+  async function handleExport(status) {
+    setExportingStatus(status);
+    try {
+      const trades = await getTrades({
+        status,
+        dateRange: selectedFilters.date,
+      });
+      downloadTradesCsv(trades, status);
+    } finally {
+      setExportingStatus(null);
+    }
   }
 
   return (
@@ -55,7 +72,23 @@ function Filter() {
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
+        {[
+          { status: "Win", label: "Export Wins" },
+          { status: "Loss", label: "Export Losses" },
+        ].map(({ status, label }) => (
+          <button
+            key={status}
+            type="button"
+            className="flex items-center gap-1 rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white disabled:cursor-wait disabled:opacity-50"
+            onClick={() => handleExport(status)}
+            disabled={exportingStatus !== null}
+            title={`Download ${status.toLowerCase()} trades as CSV`}
+          >
+            <FiDownload />
+            {exportingStatus === status ? "Exporting..." : label}
+          </button>
+        ))}
         {selectedFilters.date && (
           <FilterTag
             tagText={selectedFilters.date}
